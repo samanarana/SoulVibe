@@ -13,7 +13,7 @@ class Nutrition(db.Model):
 
     # Relationships
     user = db.relationship('User', back_populates='nutritions')
-    nutrition_details = db.relationship('NutritionDetails', back_populates='nutrition', cascade='all, delete-orphan')
+    nutrition_details = db.relationship('NutritionDetails', back_populates='nutritions', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
