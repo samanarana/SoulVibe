@@ -15,10 +15,10 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     # Relationships
-    meditations = db.relationship("Meditation", back_populates="users")
-    journals = db.relationship("Journal", back_populates="users")
-    exercises = db.relationship("Exercise", back_populates="users")
-    reminders = db.relationship("Reminder", back_populates="users")
+    meditations = db.relationship("Meditation", back_populates="user")
+    journals = db.relationship("Journal", back_populates="user")
+    exercises = db.relationship("Exercise", back_populates="user")
+    reminders = db.relationship("Reminder", back_populates="user")
 
 
     @property
