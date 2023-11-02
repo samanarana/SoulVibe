@@ -8,9 +8,9 @@ class Meditation(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    date = db.Column(db.Date)
-    duration = db.Column(db.Integer)
-    meditation_type = db.Column(db.String)
+    date = db.Column(db.Date, nullable=False, unique=True)
+    duration = db.Column(db.Integer, nullable=False)
+    meditation_type = db.Column(db.String, nullable=False)
 
     # Relationships
     user = db.relationship("User", back_populates="meditation")
