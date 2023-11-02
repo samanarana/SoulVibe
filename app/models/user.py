@@ -19,6 +19,7 @@ class User(db.Model, UserMixin):
     journals = db.relationship("Journal", back_populates="user")
     exercises = db.relationship("Exercise", back_populates="user")
     reminders = db.relationship("Reminder", back_populates="user")
+    nutritions = db.relationship("Nutrition", back_populates="user")
 
 
     @property
