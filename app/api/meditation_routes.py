@@ -4,6 +4,13 @@ from flask_login import current_user, login_required
 
 meditation_routes = Blueprint('meditation', __name__)
 
+# Fetch all meditation entries from all users
+@meditation_routes.route('/all', methods=['GET'])
+def get_all_meditation_entries():
+    all_meditations = Meditation.query.all()
+    return {'meditation': [entry.to_dict() for entry in all_meditations]}
+
+
 # Fetch all meditation entries for the authenticated user
 @meditation_routes.route('/', methods=['GET'])
 @login_required

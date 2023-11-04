@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: d8de1e245e72
+Revision ID: 58ee710bfdb3
 Revises: 
-Create Date: 2023-11-02 20:10:14.260179
+Create Date: 2023-11-04 14:35:19.317210
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd8de1e245e72'
+revision = '58ee710bfdb3'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -41,8 +41,7 @@ def upgrade():
     sa.Column('duration', sa.Integer(), nullable=False),
     sa.Column('intensity', sa.String(), nullable=False),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('date')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('journals',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -52,7 +51,7 @@ def upgrade():
     sa.Column('mood_emoji', sa.String(), nullable=False),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('date')
+    sa.UniqueConstraint('userId', 'date', name='uq_userId_date')
     )
     op.create_table('meditations',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -61,8 +60,7 @@ def upgrade():
     sa.Column('duration', sa.Integer(), nullable=False),
     sa.Column('meditation_type', sa.String(), nullable=False),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('date')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('nutritions',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -70,8 +68,7 @@ def upgrade():
     sa.Column('date', sa.Date(), nullable=False),
     sa.Column('meal_type', sa.String(), nullable=False),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('date')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('reminders',
     sa.Column('id', sa.Integer(), nullable=False),
