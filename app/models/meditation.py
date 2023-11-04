@@ -8,7 +8,7 @@ class Meditation(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    date = db.Column(db.Date, nullable=False, unique=True)
+    date = db.Column(db.Date, nullable=False)
     duration = db.Column(db.Integer, nullable=False)
     meditation_type = db.Column(db.String, nullable=False)
 

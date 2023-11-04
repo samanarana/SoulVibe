@@ -4,6 +4,14 @@ from flask_login import current_user, login_required
 
 nutrition_routes = Blueprint('nutrition', __name__)
 
+
+# Fetch all nutrition entries from all users
+@nutrition_routes.route('/all', methods=['GET'])
+def get_all_nutrition_entries():
+    all_nutrition = Nutrition.query.all()
+    return {'nutrition': [entry.to_dict() for entry in all_nutrition]}
+
+
 # Fetch all nutrition entries for the authenticated user
 @nutrition_routes.route('/', methods=['GET'])
 @login_required

@@ -5,6 +5,13 @@ from flask_login import current_user, login_required
 exercise_routes = Blueprint('exercises', __name__)
 
 
+# Fetch all exercise entries from all users
+@exercise_routes.route('/all', methods=['GET'])
+def get_all_exercise_entries():
+    all_exercises = Exercise.query.all()
+    return {'exercise': [entry.to_dict() for entry in all_exercises]}
+
+
 # Fetch all exercise entries for the authenticated user
 @exercise_routes.route('/', methods=['GET'])
 @login_required

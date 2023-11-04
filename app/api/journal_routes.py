@@ -4,6 +4,14 @@ from flask_login import current_user, login_required
 
 journal_routes = Blueprint('journals', __name__)
 
+
+# Fetch all journal entries from all users
+@journal_routes.route('/all', methods=['GET'])
+def get_all_journals():
+    all_journals = Journal.query.all()
+    return {'journals': [journal.to_dict() for journal in all_journals]}
+
+
 # Fetch all journal entries for the authenticated user
 @journal_routes.route('/', methods=['GET'])
 @login_required
