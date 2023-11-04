@@ -1,4 +1,5 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
+from datetime import datetime
 from app.models import Journal, db
 from flask_login import current_user, login_required
 
@@ -25,9 +26,14 @@ def get_journals():
 @login_required
 def create_journal():
     data = request.json
+
+    # Parse date string to date object
+    date_str = data['date']
+    date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
+
     new_journal = Journal(
         userId=current_user.id,
-        date=data['date'],
+        date=date_obj,  # Use the parsed date object here
         content=data['content'],
         mood_emoji=data['mood_emoji']
     )
@@ -42,9 +48,11 @@ def create_journal():
 def manage_journal(id):
     journal = Journal.query.get(id)
 
-    # Ensure the journal exists and belongs to the current user
-    if not journal or journal.userId != current_user.id:
-        return ('Journal entry not found', 404)
+    if not journal:
+        return ('Journal entry with given ID not found', 404)
+
+    if journal.userId != current_user.id:
+        return ('Unauthorized to access this journal entry', 403)
 
     # Fetch a specific journal entry
     if request.method == 'GET':
@@ -63,4 +71,4 @@ def manage_journal(id):
     elif request.method == 'DELETE':
         db.session.delete(journal)
         db.session.commit()
-        return ('Journal entry deleted', 204)
+        return jsonify(message='Journal entry deleted'), 200
