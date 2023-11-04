@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 class Nutrition(db.Model):
-    __tablename__ = 'nutrition'
+    __tablename__ = 'nutritions'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
@@ -12,7 +12,7 @@ class Nutrition(db.Model):
     meal_type = db.Column(db.String, nullable=False)
 
     # Relationships
-    user = db.relationship('User', back_populates='nutrition')
+    user = db.relationship('User', back_populates='nutritions')
     nutrition_details = db.relationship('NutritionDetails', back_populates='nutrition', cascade='all, delete-orphan')
 
     def to_dict(self):

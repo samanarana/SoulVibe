@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 class Exercise(db.Model):
-    __tablename__ = 'exercise'
+    __tablename__ = 'exercises'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
@@ -14,7 +14,7 @@ class Exercise(db.Model):
     intensity = db.Column(db.String, nullable=False)
 
     # Relationships
-    user =db.relationship("User", back_populates="exercise")
+    user =db.relationship("User", back_populates="exercises")
 
     def to_dict(self):
         return {

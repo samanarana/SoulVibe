@@ -7,7 +7,7 @@ class NutritionDetails(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    nutrition_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('nutrition.id')), nullable=False)
+    nutrition_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('nutritions.id')), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('food_categories.id')), nullable=False)
     description = db.Column(db.Text, nullable=False)
     amount = db.Column(db.String, nullable=False)

@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 class Journal(db.Model):
-    __tablename__ = 'journal'
+    __tablename__ = 'journals'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
@@ -13,7 +13,7 @@ class Journal(db.Model):
     mood_emoji = db.Column(db.String, nullable=False)
 
     # Relationships
-    user = db.relationship("User", back_populates="journal")
+    user = db.relationship("User", back_populates="journals")
 
     def to_dict(self):
         return {
