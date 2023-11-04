@@ -1,4 +1,5 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
+from datetime import datetime
 from app.models import Meditation, db
 from flask_login import current_user, login_required
 
@@ -26,7 +27,7 @@ def create_meditation_entry():
     data = request.json
     new_meditation = Meditation(
         userId=current_user.id,
-        date=data['date'],
+        date=datetime.strptime(data['date'], "%Y-%m-%d").date(),
         duration=data['duration'],
         meditation_type=data['meditation_type']
     )
@@ -52,7 +53,7 @@ def manage_meditation_entry(id):
     # Update a specific meditation entry
     elif request.method == 'PUT':
         data = request.json
-        meditation_entry.date = data.get('date', meditation_entry.date)
+        meditation_entry.date = datetime.strptime(data.get('date', meditation_entry.date), "%Y-%m-%d").date()
         meditation_entry.duration = data.get('duration', meditation_entry.duration)
         meditation_entry.meditation_type = data.get('meditation_type', meditation_entry.meditation_type)
         db.session.commit()
@@ -62,4 +63,4 @@ def manage_meditation_entry(id):
     elif request.method == 'DELETE':
         db.session.delete(meditation_entry)
         db.session.commit()
-        return ('Meditation entry deleted', 204)
+        return jsonify(message='Meditation entry deleted'), 200

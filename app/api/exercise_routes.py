@@ -1,4 +1,5 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
+from datetime import datetime
 from app.models import Exercise, db
 from flask_login import current_user, login_required
 
@@ -25,9 +26,12 @@ def get_exercise_entries():
 @login_required
 def create_exercise_entry():
     data = request.json
+    date_str = data['date']
+    date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
+
     new_exercise = Exercise(
         userId=current_user.id,
-        date=data['date'],
+        date=date_obj,
         exercise_type=data['exercise_type'],
         duration=data['duration'],
         intensity=data['intensity']
@@ -54,7 +58,11 @@ def manage_exercise_entry(id):
     # Update a specific exercise entry
     elif request.method == 'PUT':
         data = request.json
-        exercise_entry.date = data.get('date', exercise_entry.date)
+        date_str = data.get('date', None)
+        if date_str:
+            date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
+            exercise_entry.date = date_obj
+
         exercise_entry.exercise_type = data.get('exercise_type', exercise_entry.exercise_type)
         exercise_entry.duration = data.get('duration', exercise_entry.duration)
         exercise_entry.intensity = data.get('intensity', exercise_entry.intensity)
@@ -65,4 +73,4 @@ def manage_exercise_entry(id):
     elif request.method == 'DELETE':
         db.session.delete(exercise_entry)
         db.session.commit()
-        return ('Exercise entry deleted', 204)
+        return jsonify(message='Exercise entry deleted'), 200
