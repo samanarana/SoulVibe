@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 class Reminder(db.Model):
-    __tablename__ = 'reminder'
+    __tablename__ = 'reminders'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
@@ -13,7 +13,7 @@ class Reminder(db.Model):
     scheduled_at = db.Column(db.Date, nullable=False, unique=True)
 
     # Relationships
-    user = db.relationship("User", back_populates="reminder")
+    user = db.relationship("User", back_populates="reminders")
 
     def to_dict(self):
         return {

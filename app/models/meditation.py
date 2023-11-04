@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 class Meditation(db.Model):
-    __tablename__ = 'meditation'
+    __tablename__ = 'meditations'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
@@ -13,7 +13,7 @@ class Meditation(db.Model):
     meditation_type = db.Column(db.String, nullable=False)
 
     # Relationships
-    user = db.relationship("User", back_populates="meditation")
+    user = db.relationship("User", back_populates="meditations")
 
     def to_dict(self):
         return {

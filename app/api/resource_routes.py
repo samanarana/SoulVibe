@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 
-resource_routes = Blueprint('resource', __name__)
+resource_routes = Blueprint('resources', __name__)
 
 # Sample data
 resources = [

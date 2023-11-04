@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from app.models import Exercise, db
 from flask_login import current_user, login_required
 
-exercise_routes = Blueprint('exercise', __name__)
+exercise_routes = Blueprint('exercises', __name__)
 
 
 # Fetch all exercise entries for the authenticated user
