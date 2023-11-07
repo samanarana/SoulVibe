@@ -1,0 +1,32 @@
+.page-nav {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    background: transparent;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .page-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 15px;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+  }
+
+  .page-item:hover,
+  .active {
+    transform: scale(1.1);
+  }
+
+  .active .page-icon {
+    background-color: #bebebe;
+    border-radius: 5px;
+  }
+
+  .page-item .page-icon {
+    width: 70px;
+    height: 70px;
+    transition: background-color 0.3s, transform 0.3s ease;
+  }
