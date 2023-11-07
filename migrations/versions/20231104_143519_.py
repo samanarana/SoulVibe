@@ -1,13 +1,16 @@
 """empty message
 
 Revision ID: 58ee710bfdb3
-Revises: 
+Revises:
 Create Date: 2023-11-04 14:35:19.317210
 
 """
 from alembic import op
 import sqlalchemy as sa
 
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
 revision = '58ee710bfdb3'
@@ -24,6 +27,10 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('category_name')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE food_categories SET SCHEMA {SCHEMA};")
+
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=40), nullable=False),
@@ -33,6 +40,10 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+
     op.create_table('exercises',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
@@ -43,6 +54,10 @@ def upgrade():
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE exercises SET SCHEMA {SCHEMA};")
+
     op.create_table('journals',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
@@ -53,6 +68,10 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('userId', 'date', name='uq_userId_date')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE journals SET SCHEMA {SCHEMA};")
+
     op.create_table('meditations',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
@@ -62,6 +81,10 @@ def upgrade():
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE meditations SET SCHEMA {SCHEMA};")
+
     op.create_table('nutritions',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
@@ -70,6 +93,10 @@ def upgrade():
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE nutritions SET SCHEMA {SCHEMA};")
+
     op.create_table('reminders',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
@@ -80,6 +107,10 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('scheduled_at')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE reminders SET SCHEMA {SCHEMA};")
+
     op.create_table('nutrition_details',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('nutrition_id', sa.Integer(), nullable=False),
@@ -90,6 +121,10 @@ def upgrade():
     sa.ForeignKeyConstraint(['nutrition_id'], ['nutritions.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE nutrition_details SET SCHEMA {SCHEMA};")
+
     # ### end Alembic commands ###
 
 
