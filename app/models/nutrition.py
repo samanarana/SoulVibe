@@ -8,8 +8,8 @@ class Nutrition(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    date = db.Column(db.Date)
-    meal_type = db.Column(db.String)
+    date = db.Column(db.Date, nullable=False)
+    meal_type = db.Column(db.String, nullable=False)
 
     # Relationships
     user = db.relationship('User', back_populates='nutritions')

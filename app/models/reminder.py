@@ -8,9 +8,9 @@ class Reminder(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    type = db.Column(db.String)
-    content = db.Column(db.Text)
-    scheduled_at = db.Column(db.Date)
+    type = db.Column(db.String, nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    scheduled_at = db.Column(db.Date, nullable=False, unique=True)
 
     # Relationships
     user = db.relationship("User", back_populates="reminders")

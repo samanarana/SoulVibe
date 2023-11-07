@@ -9,8 +9,8 @@ class NutritionDetails(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nutrition_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('nutritions.id')), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('food_categories.id')), nullable=False)
-    description = db.Column(db.Text)
-    amount = db.Column(db.String)
+    description = db.Column(db.Text, nullable=False)
+    amount = db.Column(db.String, nullable=False)
 
     # Relationships
     nutrition = db.relationship('Nutrition', back_populates='nutrition_details')

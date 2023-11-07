@@ -4,9 +4,17 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
-from .models import db, User
+
+from .models import db, User, Reminder, nutritionAssociation, Nutrition, Meditation, Journal, foodCategory, Exercise
+
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
+from .api.journal_routes import journal_routes
+from .api.exercise_routes import exercise_routes
+from .api.meditation_routes import meditation_routes
+from .api.nutrition_routes import nutrition_routes
+from .api.reminder_routes import reminder_routes
+from.api.resource_routes import resource_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -28,6 +36,12 @@ app.cli.add_command(seed_commands)
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
+app.register_blueprint(journal_routes, url_prefix='/api/journals')
+app.register_blueprint(exercise_routes, url_prefix='/api/exercises')
+app.register_blueprint(meditation_routes, url_prefix='/api/meditation')
+app.register_blueprint(nutrition_routes, url_prefix='/api/nutrition')
+app.register_blueprint(reminder_routes, url_prefix='/api/reminders')
+app.register_blueprint(resource_routes, url_prefix='/api/resources')
 db.init_app(app)
 Migrate(app, db)
 

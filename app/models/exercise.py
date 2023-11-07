@@ -8,10 +8,10 @@ class Exercise(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    date = db.Column(db.Date)
-    exercise_type = db.Column(db.String)
-    duration = db.Column(db.Integer)
-    intensity = db.Column(db.String)
+    date = db.Column(db.Date, nullable=False)
+    exercise_type = db.Column(db.String, nullable=False)
+    duration = db.Column(db.Integer, nullable=False)
+    intensity = db.Column(db.String, nullable=False)
 
     # Relationships
     user =db.relationship("User", back_populates="exercises")
