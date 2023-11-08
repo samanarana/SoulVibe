@@ -9,6 +9,7 @@ import MeditationPage from "./components/MeditationPage/index";
 import NutritionPage from "./components/NutritionPage/index";
 import JournalPage from "./components/JournalPage/index";
 import ResourcePage from "./components/ResourcePage/index";
+import HomePage from "./components/Navigation/HomePage";
 
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
@@ -25,6 +26,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
           <Route path="/login" >
             <LoginFormPage />
           </Route>
