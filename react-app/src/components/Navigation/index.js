@@ -26,7 +26,7 @@ function Navigation({ isLoaded }) {
         </div>
       </nav>
 
-      <PageNav />
+      {sessionUser && <PageNav />}
     </div>
   );
 }
