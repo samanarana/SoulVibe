@@ -8,7 +8,7 @@
     position: relative;
     overflow: hidden;
     font-family: Arial, sans-serif;
-    height: 250px;
+    height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -33,7 +33,7 @@
 
 .quote {
     margin-top: 70px;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-style: italic;
     padding: 20px 20px;
     color: #181c24;
@@ -48,5 +48,5 @@
     top: 18%;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 3em;
+    font-size: 2.8em;
 }

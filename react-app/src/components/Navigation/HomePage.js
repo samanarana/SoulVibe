@@ -1,18 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import './HomePage.css';
-import SlideShow from './Slideshow';
 
+import SlideShow from './Slideshow';
+import LoginFormModal from '../LoginFormModal/index';
 import EstherImage from './images/Esther.jpg';
 import FoodImage from './images/Food.jpg';
 import SprintImage from './images/Sprint.jpg';
 
 function HomePage() {
+    const user = useSelector(state => state.session.user);
+    const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
+
+    // open the login modal
+    const openLoginForm = () => {
+        setIsLoginFormOpen(true);
+    };
+
+    // close the login modal
+    const closeLoginForm = () => {
+        setIsLoginFormOpen(false);
+    };
+
   return (
         <div className="homepage">
 
         <section className="welcome-section">
             <p className="welcome">Get In Tune with Your Well-Being</p>
             <p className="message2">Track Your Wellness Journey All In One Place!</p>
+            <div className="stars-container">
+                {'★★★★★'}
+            </div>
         </section>
 
         <section className="quote-slider-section">
@@ -42,20 +60,30 @@ function HomePage() {
                 <div className="text-block">
                 <p className="little">Our Philosophy</p>
                 <p className="big">Knowledge is Power</p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac efficitur est.
-                    Fusce vulputate, nisl in luctus auctor, sapien odio euismod dolor, non fringilla
-                    ipsum est in velit.
+                <p className="texts">
+                SoulVibe invites you on an enlightening journey towards holistic well-being, where the tracking of your
+                exercise and nutrition intertwines with the profound practice of journaling and meditation.
+
                 </p>
-                <p>
-                    Vestibulum non erat vel purus condimentum vestibulum. Curabitur euismod mi non
-                    massa porttitor, at venenatis nunc tempor.
+                <p className="texts">
+                SoulVibe isn't just a tool; it's a companion in your quest for balance, offering guidance and insight as
+                you walk the path of self-improvement and inner peace. Through this integrated approach, you’ll find that
+                achieving your health goals is about cultivating a vibrant spirit as much as it is about physical wellness.
                 </p>
                 </div>
             </section>
         </div>
 
-        {/* Add more sections as needed */}
+        <section className="footer-section">
+            <p className="footer-title">SoulVibe</p>
+            <p className="message3">Find your healthy, and your happy.</p>
+            {!user && (
+                <>
+                    <button onClick={openLoginForm}>START TODAY</button>
+                    {isLoginFormOpen && <LoginFormModal onClose={closeLoginForm} />}
+                </>
+            )}
+        </section>
 
         </div>
     );
