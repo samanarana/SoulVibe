@@ -77,12 +77,6 @@ function HomePage() {
         <section className="footer-section">
             <p className="footer-title">SoulVibe</p>
             <p className="message3">Find your healthy, and your happy.</p>
-            {!user && (
-                <>
-                    <button onClick={openLoginForm}>START TODAY</button>
-                    {isLoginFormOpen && <LoginFormModal onClose={closeLoginForm} />}
-                </>
-            )}
         </section>
 
         </div>
