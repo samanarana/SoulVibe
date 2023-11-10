@@ -4,33 +4,55 @@ import { fetchExercisesThunk, createExerciseThunk, editExerciseThunk, deleteExer
 import './ExercisePage.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-
+import { faTrashCan, faEye, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const ExercisePage = () => {
-  // state for handling form inputs
   const [date, setDate] = useState('');
   const [exerciseType, setExerciseType] = useState('');
   const [duration, setDuration] = useState('');
   const [intensity, setIntensity] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingExerciseId, setEditingExerciseId] = useState(null);
+  const [errors, setErrors] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const dispatch = useDispatch();
+  const exercises = useSelector(state => state.exercise.exercises);
 
-  // Fetching the exercises from store
   useEffect(() => {
     dispatch(fetchExercisesThunk());
   }, [dispatch]);
 
-  // Accessing exercises state from store
-  const exercises = useSelector(state => state.exercise.exercises);
+  const validateForm = () => {
+    const validationErrors = {};
+    if (!date) {
+      validationErrors.date = 'Please select a date for the exercise.';
+    }
+    if (!exerciseType.match(/^[a-zA-Z ]+$/) || exerciseType.length < 4 || exerciseType.length > 30) {
+      validationErrors.exerciseType = 'Exercise type must contain only letters.';
+    }
+    if (!duration || isNaN(duration) || duration <= 0 || duration > 360) {
+      validationErrors.duration = 'Please enter a duration less than 360 minutes.';
+    }
+    if (!intensity) {
+      validationErrors.intensity = 'Please select an intensity level.';
+    }
+    return validationErrors;
+  };
 
-  // Handlers for form inputs
   const handleDateChange = (e) => setDate(e.target.value);
   const handleExerciseTypeChange = (e) => setExerciseType(e.target.value);
   const handleDurationChange = (e) => setDuration(e.target.value);
   const handleIntensityChange = (e) => setIntensity(e.target.value);
 
-  // date formatting
+  const formatDateForInput = (dateString) => {
+    const dateObj = new Date(dateString);
+    const year = dateObj.getUTCFullYear();
+    const month = (dateObj.getUTCMonth() + 1).toString().padStart(2, '0');
+    const day = dateObj.getUTCDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   const formatDate = (dateString) => {
     const dateObj = new Date(dateString);
     const month = dateObj.getMonth() + 1;
@@ -39,67 +61,135 @@ const ExercisePage = () => {
     return `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year}`;
   };
 
-  // Handler for adding new exercise
-  const handleAddExercise = () => {
-    const newExercise = {
+  const handleViewDetails = (exerciseId) => {
+    const exercise = exercises[exerciseId];
+    if (exercise) {
+      const formattedDate = formatDateForInput(exercise.date);
+      setDate(formattedDate);
+      setExerciseType(exercise.exercise_type);
+      setDuration(exercise.duration);
+      setIntensity(exercise.intensity);
+      setIsEditing(true);
+      setEditingExerciseId(exerciseId);
+    }
+  };
+
+  const handleSaveExercise = () => {
+    setIsSubmitted(true);
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    const exerciseData = {
       date,
-      exerciseType,
+      exercise_type: exerciseType,
       duration,
       intensity,
     };
-    dispatch(createExerciseThunk(newExercise));
+
+    if (isEditing) {
+      dispatch(editExerciseThunk(editingExerciseId, exerciseData));
+    } else {
+      dispatch(createExerciseThunk(exerciseData));
+    }
+
+    resetFormToAddMode();
+    setIsSubmitted(false);
   };
 
-  // Handler for removing exercise
+  const resetFormToAddMode = () => {
+    setDate('');
+    setExerciseType('');
+    setDuration('');
+    setIntensity('');
+    setIsEditing(false);
+    setEditingExerciseId(null);
+  };
+
   const handleRemoveExercise = (id) => {
     dispatch(deleteExerciseThunk(id));
   };
 
   return (
     <div className="full-page-container">
-        <div className="exercise-page">
+      <div className="exercise-page">
 
-            <div className="exercise-list-container">
-              <p className="title-exercise-list">My Exercises</p>
+        <div className="exercise-list-container">
+          <div className="title-container">
+            <p className="title-exercise-list">My Exercises</p>
+            <button className="reset-add-exercise-button" onClick={resetFormToAddMode}>
+              <FontAwesomeIcon icon={faPlus} />
+            </button>
+          </div>
 
-              <div className="exercise-list">
-                {exercises && Object.values(exercises).map((exercise) => (
-                  <div key={exercise.id} className="exercise-entry">
-                    <span>{formatDate(exercise.date)}</span>
-                    <span>Type: {exercise.exercise_type}</span>
-                    <span>Duration: {exercise.duration} minutes</span>
-                    <span>Intensity: {exercise.intensity}</span>
-                    <button onClick={() => handleRemoveExercise(exercise.id)}>
-                      <FontAwesomeIcon icon={faTrashCan} style={{color: "#181d25"}} />
-                    </button>
-                  </div>
-                ))}
+          <div className="exercise-list">
+            {exercises && Object.values(exercises).map((exercise) => (
+              <div key={exercise.id} className="exercise-entry">
+                <span>{formatDate(exercise.date)}</span>
+                <span>{exercise.exercise_type}</span>
+                <span>
+                  Duration: {exercise.duration} {exercise.duration === 1 ? 'minute' : 'minutes'}
+                </span>
+                <span>Intensity: {exercise.intensity}</span>
+                <button className="view-button" onClick={() => handleViewDetails(exercise.id)}>
+                  <FontAwesomeIcon icon={faEye} style={{color: "#181d25"}} />
+                </button>
+                <button className="delete-button" onClick={() => handleRemoveExercise(exercise.id)}>
+                  <FontAwesomeIcon icon={faTrashCan} style={{color: "#181d25"}} />
+                </button>
               </div>
-            </div>
-
-            <div className="exercise-input-container">
-                <div className="input-field input-field-date">
-                  <input type="date" value={date} onChange={handleDateChange} />
-                </div>
-                <div className="input-field input-field-type">
-                  <input type="text" placeholder="Exercise Type" value={exerciseType} onChange={handleExerciseTypeChange} />
-                </div>
-                <div className="input-field input-field-duration">
-                  <input type="text" placeholder="Duration" value={duration} onChange={handleDurationChange} />
-                </div>
-                <div className="input-field input-field-intensity">
-                  <input type="text" placeholder="Intensity" value={intensity} onChange={handleIntensityChange} />
-                </div>
-
-                <div className="submit-button-container">
-                  <button className="add-exercise-button" onClick={handleAddExercise}>Add Exercise</button>
-                </div>
-            </div>
-
+            ))}
+          </div>
         </div>
-    </div>
-);
 
+        <div className="exercise-input-container">
+          <div className="input-field input-field-date">
+            <input type="date" value={date} onChange={handleDateChange} readOnly={isEditing} />
+            {errors.date && <div className="error-message">{errors.date}</div>}
+          </div>
+
+          <div className="input-field input-field-type">
+            <input type="text" placeholder="Exercise Type" value={exerciseType} onChange={handleExerciseTypeChange} />
+            {errors.exerciseType && <div className="error-message">{errors.exerciseType}</div>}
+          </div>
+
+          <div className="input-field input-field-duration">
+            <input type="text" placeholder="Duration (min)" value={duration} onChange={handleDurationChange} />
+            {errors.duration && <div className="error-message">{errors.duration}</div>}
+          </div>
+
+          <div className="input-field input-field-intensity">
+            <select value={intensity} onChange={handleIntensityChange} defaultValue="">
+              <option value="" disabled>Select Intensity</option>
+              <option value="Low">Low</option>
+              <option value="Moderate">Moderate</option>
+              <option value="High">High</option>
+            </select>
+            {errors.intensity && <div className="error-message">{errors.intensity}</div>}
+          </div>
+
+
+          <div className="submit-button-container">
+                <button
+                className="save-exercise-button"
+                onClick={handleSaveExercise}
+                disabled={
+                  !date ||
+                  exerciseType.length < 4 ||
+                  isNaN(duration) ||
+                  duration <= 0 ||
+                  !intensity
+                }
+              >
+                {isEditing ? 'Save Changes' : 'Add Exercise'}
+          </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default ExercisePage;

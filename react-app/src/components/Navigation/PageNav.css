@@ -2,17 +2,18 @@
     display: flex;
     justify-content: center;
     padding: 10px;
+    margin-right: 20px;
     background: transparent;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   .page-item {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 15px;
+    margin-right: 35px;
     text-decoration: none;
     transition: transform 0.3s ease;
+
   }
 
   .page-item:hover,
@@ -26,7 +27,7 @@
   }
 
   .page-item .page-icon {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     transition: background-color 0.3s, transform 0.3s ease;
   }
