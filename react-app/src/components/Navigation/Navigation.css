@@ -13,23 +13,22 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-
+  min-height: 80px;
 }
 
 .nav-container {
-  width: 100%;
-  max-width: 1200px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
 .nav-title {
   margin: 0;
   margin-bottom: 8px;
-  flex-grow: 1;
+  flex-grow: 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   font-style: italic;
 }
 
@@ -42,7 +41,7 @@ html, body {
 .profile-container {
   position: relative;
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
 }
 
 .profile-dropdown {
