@@ -32,7 +32,7 @@ const initialState = {
 
 // thunks
 export const fetchJournalsThunk = () => async (dispatch) => {
-  const response = await fetch("/api/journal/", {
+  const response = await fetch("/api/journals/", {
     headers: {
       "Content-Type": "application/json",
     },
@@ -48,12 +48,18 @@ export const fetchJournalsThunk = () => async (dispatch) => {
 };
 
 export const createJournalThunk = (journalData) => async (dispatch) => {
-  const response = await fetch("/api/journal/", {
+  const currentDate = new Date().toISOString().split('T')[0];
+  const dataToSend = {
+    ...journalData,
+    date: currentDate
+  };
+
+  const response = await fetch("/api/journals/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(journalData),
+    body: JSON.stringify(dataToSend),
   });
   if (response.ok) {
     const journal = await response.json();
@@ -62,7 +68,7 @@ export const createJournalThunk = (journalData) => async (dispatch) => {
 };
 
 export const editJournalThunk = (id, journalData) => async (dispatch) => {
-  const response = await fetch(`/api/journal/${id}`, {
+  const response = await fetch(`/api/journals/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -76,7 +82,7 @@ export const editJournalThunk = (id, journalData) => async (dispatch) => {
 };
 
 export const deleteJournalThunk = (id) => async (dispatch) => {
-  const response = await fetch(`/api/journal/${id}`, {
+  const response = await fetch(`/api/journals/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

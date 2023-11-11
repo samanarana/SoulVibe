@@ -1,0 +1,127 @@
+.calendar-container * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
+.calendar-container {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.calendar-container .wrapper {
+  width: 320px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+.calendar-container .wrapper header {
+  display: flex;
+  align-items: center;
+  padding: 15px 15px 5px;
+  justify-content: space-between;
+}
+
+.calendar-container header .icons {
+  display: flex;
+}
+
+.calendar-container header .icons span {
+  height: 19px;
+  width: 19px;
+  margin: 0 1px;
+  cursor: pointer;
+  color: #878787;
+  text-align: center;
+  line-height: 19px;
+  font-size: .95rem;
+  user-select: none;
+  border-radius: 50%;
+}
+
+.calendar-container .icons span:last-child {
+  margin-right: -10px;
+}
+
+.calendar-container header .icons span:hover {
+  background: #f2f2f2;
+}
+
+.calendar-container header .current-date {
+font-size: 0.72rem;
+  font-weight: 500;
+}
+
+.calendar-container .calendar {
+  padding: 10px;
+}
+
+.calendar-container .calendar ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  text-align: center;
+}
+
+.calendar-container .calendar .days {
+  margin-bottom: 20px;
+}
+
+.calendar-container .calendar li {
+  color: #333;
+  width: calc(100% / 7);
+  font-size: 1.07rem;
+}
+
+.calendar-container .calendar .weeks li {
+  font-weight: 500;
+  cursor: default;
+}
+
+.calendar-container .calendar .days li {
+  z-index: 1;
+  cursor: pointer;
+  position: relative;
+  margin-top: 30px;
+}
+
+.calendar-container .days li.inactive {
+  color: #aaa;
+}
+
+.calendar-container .days li.active {
+  color: #fff;
+}
+
+.calendar-container .days li::before {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  height: 30px;
+  width: 30px;
+  z-index: -1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.calendar-container .days li.active::before {
+  background: rgb(250, 92, 35);
+}
+
+.calendar-container .days li:not(.active):hover::before {
+  background: #f2f2f2;
+}
+
+.calendar-container .days li.selected {
+    color: #fff; /* Change text color if needed */
+  }
+
+  .calendar-container .days li.selected::before {
+    background: #45a049; /* Solid color circle for the selected date */
+  }
