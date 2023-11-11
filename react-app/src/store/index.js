@@ -2,10 +2,17 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session'
 import exercise from './exercise'
+import journal from './journal'
+import meditation from './meditation'
+import nutrition from './nutrition'
+
 
 const rootReducer = combineReducers({
   session,
   exercise,
+  journal,
+  meditation,
+  nutrition,
 });
 
 
