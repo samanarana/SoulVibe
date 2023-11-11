@@ -14,7 +14,7 @@ const ExercisePage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingExerciseId, setEditingExerciseId] = useState(null);
   const [errors, setErrors] = useState({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [setIsSubmitted] = useState(false);
 
   const dispatch = useDispatch();
   const exercises = useSelector(state => state.exercise.exercises);
@@ -106,6 +106,7 @@ const ExercisePage = () => {
     setIntensity('');
     setIsEditing(false);
     setEditingExerciseId(null);
+    setErrors('');
   };
 
   const handleRemoveExercise = (id) => {
