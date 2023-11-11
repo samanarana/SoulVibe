@@ -55,6 +55,7 @@ html, body {
   top: calc(100% + 5px);
   min-width: 130px;
   border-radius: 4px;
+  z-index: 1;
 }
 
 .profile-dropdown li {

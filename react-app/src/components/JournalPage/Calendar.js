@@ -9,7 +9,6 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 const Calendar = ({ onDateSelect }) => {
     const dispatch = useDispatch();
     const journals = useSelector(state => state.journal.journals);
-    const [selectedJournal, setSelectedJournal] = useState(null);
     const [date, setDate] = useState(new Date());
     const [currYear, setCurrYear] = useState(date.getFullYear());
     const [currMonth, setCurrMonth] = useState(date.getMonth());
@@ -21,12 +20,9 @@ const Calendar = ({ onDateSelect }) => {
                     "July", "August", "September", "October", "November", "December"];
 
     const handleDateClick = useCallback((dateKey, day) => {
-        if(journals[dateKey]) {
-            setSelectedJournal(journals[dateKey]);
-        }
         setSelectedDate(new Date(currYear, currMonth, day));
         onDateSelect(dateKey);
-    }, [journals, onDateSelect, currYear, currMonth]);
+    }, [onDateSelect, currYear, currMonth]);
 
     useEffect(() => {
         dispatch(fetchJournalsThunk());
@@ -34,39 +30,43 @@ const Calendar = ({ onDateSelect }) => {
 
 
     const renderCalendar = useCallback(() => {
-            const firstDayOfMonth = new Date(currYear, currMonth, 1).getDay();
-            const lastDateOfMonth = new Date(currYear, currMonth + 1, 0).getDate();
-            const lastDayOfMonth = new Date(currYear, currMonth, lastDateOfMonth).getDay();
-            const lastDateOfLastMonth = new Date(currYear, currMonth, 0).getDate();
+        const firstDayOfMonth = new Date(currYear, currMonth, 1).getDay();
+        const lastDateOfMonth = new Date(currYear, currMonth + 1, 0).getDate();
+        const lastDayOfMonth = new Date(currYear, currMonth, lastDateOfMonth).getDay();
+        const lastDateOfLastMonth = new Date(currYear, currMonth, 0).getDate();
 
-            let days = [];
+        let days = [];
 
-            for (let i = firstDayOfMonth; i > 0; i--) {
-                days.push(<li key={`prev-${i}`} className="inactive">{lastDateOfLastMonth - i + 1}</li>);
-            }
+        // Loop for days of previous month shown in the current month's calendar
+        for (let i = firstDayOfMonth; i > 0; i--) {
+            days.push(<li key={`prev-${i}`} className="inactive">{lastDateOfLastMonth - i + 1}</li>);
+        }
 
-            for (let i = 1; i <= lastDateOfMonth; i++) {
-                let dateKey = `${currYear}-${currMonth + 1}-${i}`;
-                let journalClass = journals[dateKey] ? 'journal-entry' : '';
-                let isToday = i === date.getDate() && currMonth === new Date().getMonth()
-                            && currYear === new Date().getFullYear() ? "active" : "";
-                let isSelected = selectedDate && i === selectedDate.getDate() && currMonth === selectedDate.getMonth();
-                let className = `${isToday} ${journalClass} ${isSelected ? 'selected' : ''}`;
-                days.push(
-                  <li key={i}
-                      className={className}
-                      onClick={() => handleDateClick(dateKey, i)}>
-                      {i}
-                  </li>
-                );
-            }
+        // Loop for days of current month
+        for (let i = 1; i <= lastDateOfMonth; i++) {
+            let dateKey = `${currYear}-${String(currMonth + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+            let journalEntryExists = journals[dateKey] ? true : false;
 
-            for (let i = 1; i <= 6 - lastDayOfMonth; i++) {
-                days.push(<li key={`next-${i}`} className="inactive">{i}</li>);
-            }
+            let journalClass = journalEntryExists ? 'journal-entry' : '';
+            let isToday = i === date.getDate() && currMonth === new Date().getMonth() && currYear === new Date().getFullYear() ? "active" : "";
+            let isSelected = selectedDate && i === selectedDate.getDate() && currMonth === selectedDate.getMonth();
+            let className = `${isToday} ${journalClass} ${isSelected ? 'selected' : ''}`;
+            days.push(
+                <li key={i} className={className} onClick={() => handleDateClick(dateKey, i)}>
+                    <span>{i}</span> {/* Date Number */}
+                    {journalEntryExists && <span className="dot-indicator"></span>}
+                </li>
+            );
+        }
 
-            setCalendarDays(days);
-        }, [currMonth, currYear, date, journals, selectedDate, handleDateClick]);
+        // Loop for days of next month shown in the current month's calendar
+        for (let i = 1; i <= 6 - lastDayOfMonth; i++) {
+            days.push(<li key={`next-${i}`} className="inactive">{i}</li>);
+        }
+
+        setCalendarDays(days);
+    }, [currMonth, currYear, date, journals, selectedDate, handleDateClick]);
+
 
     useEffect(() => {
         renderCalendar();

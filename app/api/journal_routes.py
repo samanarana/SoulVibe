@@ -27,18 +27,21 @@ def get_journals():
 def create_journal():
     data = request.json
 
-    # Parse date string to date object
     date_str = data['date']
     date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
 
     new_journal = Journal(
         userId=current_user.id,
-        date=date_obj,  # Use the parsed date object here
+         date=date_obj,
         content=data['content'],
         mood_emoji=data['mood_emoji']
     )
     db.session.add(new_journal)
     db.session.commit()
+
+    journal_dict = new_journal.to_dict()
+    journal_dict['date'] = date_str
+
     return new_journal.to_dict(), 201
 
 

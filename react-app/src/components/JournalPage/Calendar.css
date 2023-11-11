@@ -119,9 +119,26 @@ font-size: 0.72rem;
 }
 
 .calendar-container .days li.selected {
-    color: #fff; /* Change text color if needed */
+    color: #fff;
   }
 
   .calendar-container .days li.selected::before {
-    background: #45a049; /* Solid color circle for the selected date */
+    background: #45a049;
   }
+
+
+  .calendar-container ul.days li {
+    position: relative;
+}
+
+.dot-indicator {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 5px;
+    width: 5px;
+    background-color: blue;
+    border-radius: 50%;
+    margin-top: 2px;
+}

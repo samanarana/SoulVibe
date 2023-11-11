@@ -7,7 +7,7 @@ def seed_journals():
         userId=1,
         date=datetime(2023, 11, 8),
         content="Went for a run this morning and felt an incredible burst of energy afterwards. My legs were still slightly sore from yesterday's intense leg day, but pushing through that initial discomfort led to such a rewarding feeling. Definitely need to make sure I'm stretching properly to avoid any strains.",
-        mood_emoji="😊"
+        mood_emoji="😀"
     )
     journal2 = Journal(
         userId=2,

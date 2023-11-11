@@ -31,6 +31,7 @@ const initialState = {
 };
 
 // thunks
+
 export const fetchJournalsThunk = () => async (dispatch) => {
   const response = await fetch("/api/journals/", {
     headers: {
@@ -39,8 +40,9 @@ export const fetchJournalsThunk = () => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
+    console.log("Fetched journals: ", data); // Log response data
     const journalsObject = data.journals.reduce((obj, journal) => {
-      obj[journal.id] = journal;
+      obj[journal.date] = journal;
       return obj;
     }, {});
     dispatch(viewJournals(journalsObject));
@@ -48,24 +50,32 @@ export const fetchJournalsThunk = () => async (dispatch) => {
 };
 
 export const createJournalThunk = (journalData) => async (dispatch) => {
-  const currentDate = new Date().toISOString().split('T')[0];
-  const dataToSend = {
-    ...journalData,
-    date: currentDate
-  };
 
-  const response = await fetch("/api/journals/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(dataToSend),
-  });
-  if (response.ok) {
+  try {
+    const response = await fetch("/api/journals/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(journalData),
+    });
+
+    if (!response.ok) {
+      console.log("Error creating journal: ", response); // Log error response
+      return 'error';
+    }
+
     const journal = await response.json();
+    console.log("Created journal before formatting date: ", journal); // Log created journal before formatting
     dispatch(addJournal(journal));
+
+    return 'success';
+  } catch (error) {
+    return 'error';
   }
 };
+
+
 
 export const editJournalThunk = (id, journalData) => async (dispatch) => {
   const response = await fetch(`/api/journals/${id}`, {

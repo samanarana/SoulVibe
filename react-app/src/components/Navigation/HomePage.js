@@ -1,26 +1,13 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
+
 import './HomePage.css';
 
 import SlideShow from './Slideshow';
-import LoginFormModal from '../LoginFormModal/index';
 import EstherImage from './images/Esther.jpg';
 import FoodImage from './images/Food.jpg';
 import SprintImage from './images/Sprint.jpg';
 
 function HomePage() {
-    const user = useSelector(state => state.session.user);
-    const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
-
-    // open the login modal
-    const openLoginForm = () => {
-        setIsLoginFormOpen(true);
-    };
-
-    // close the login modal
-    const closeLoginForm = () => {
-        setIsLoginFormOpen(false);
-    };
 
   return (
         <div className="homepage">
