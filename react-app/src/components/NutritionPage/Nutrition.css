@@ -1,0 +1,59 @@
+/* Page Container */
+.page-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    margin-top: 50px;
+  }
+
+  .add-nutrition-form {
+    margin-top: 50px;
+  }
+
+
+  /* Date Cards and Add Nutrition Form Containers */
+  .date-cards-container,
+  .add-nutrition-form {
+    flex: 1; /* Each section takes up half of the page */
+    max-width: calc(50% - 10px); /* Adjust for the gap */
+  }
+
+  /* Date Navigator Styling */
+  .date-navigator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .date-navigator button {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+  }
+
+  .date-navigator input[type="date"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  /* Cards Container */
+  .cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* Individual Nutrition Card */
+  .nutrition-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    width: calc(100% / 3 - 10px); /* Adjust based on desired number of cards per row */
+  }
