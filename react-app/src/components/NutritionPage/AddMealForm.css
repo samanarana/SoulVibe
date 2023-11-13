@@ -1,0 +1,207 @@
+.add-meal-form-container {
+    max-width: 400px;
+    margin: 20px 40px 50px 300px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  .date-title-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: -25px;
+  }
+
+  .title-meal-form {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 5px;
+  }
+
+  .meal-date {
+    background-color: #f9f9f9;
+    border: none !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 9.5em !important;
+  }
+
+
+  /* Form Styling */
+  #add-meal-form {
+    display: grid;
+    grid-gap: 15px;
+    padding: 20px;
+  }
+
+  /* Label Styling */
+  #add-meal-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  /* Input and Select Fields */
+  #add-meal-form input[type="date"],
+  #add-meal-form input[type="text"],
+  #add-meal-form select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  #add-meal-form input[type="date"]:focus,
+  #add-meal-form input[type="text"]:focus,
+  #add-meal-form select:focus {
+    border-color: #000000;
+    outline: none;
+  }
+
+
+  .nutrition-details-container {
+    margin-top: 10px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+  }
+
+  .nutrition-details-entry {
+    margin-bottom: 20px;
+  }
+
+
+  .meal-type-selection {
+    margin-top: 0;
+  }
+
+  .meal-type-icon {
+    cursor: pointer;
+    border: 2px solid transparent;
+    margin-right: 15px;
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+  }
+  .meal-type-icon.selected {
+    border-color: #000000;
+  }
+
+
+  .meal-type-selection {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: left;
+  }
+
+  .meal-type-specific {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+
+  .meal-type-item {
+    text-align: center;
+  }
+
+  .meal-type-icon {
+    cursor: pointer;
+    border: 2px solid transparent;
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    margin-left: 10px;
+    padding: 5px;
+  }
+
+  .meal-type-icon.selected {
+    border-color: #000000;
+  }
+
+  .meal-type-label {
+    display: block;
+    cursor: pointer;
+    margin-top: 5px;
+    font-size: 12px;
+  }
+
+
+
+
+
+
+  .food-category-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: -10px;
+  }
+
+  .food-title-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 0px;
+  }
+
+  .food-category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0;
+    margin-right: 20px;
+    margin-bottom: 10px;
+  }
+
+  .category-icon {
+    cursor: pointer;
+    border: 2px solid transparent;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 5px;
+    object-fit: contain;
+  }
+
+  .category-icon.selected {
+    border-color: #000000;
+  }
+
+  .food-category-item span {
+    display: block;
+    cursor: pointer;
+    margin-top: 5px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+
+  .description-amount-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 20px;
+    gap: 20px;
+  }
+
+
+  .description-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 65%
+  }
+
+  .amount-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 35%
+  }
