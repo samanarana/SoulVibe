@@ -30,15 +30,12 @@
     width: 9.5em !important;
   }
 
-
-  /* Form Styling */
   #add-meal-form {
     display: grid;
     grid-gap: 15px;
     padding: 20px;
   }
 
-  /* Label Styling */
   #add-meal-form label {
     display: block;
     margin-bottom: 5px;
@@ -46,7 +43,6 @@
     color: #333;
   }
 
-  /* Input and Select Fields */
   #add-meal-form input[type="date"],
   #add-meal-form input[type="text"],
   #add-meal-form select {
@@ -72,7 +68,7 @@
   }
 
   .nutrition-details-entry {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
 
 
@@ -131,11 +127,6 @@
     margin-top: 5px;
     font-size: 12px;
   }
-
-
-
-
-
 
   .food-category-selection {
     display: flex;
@@ -204,4 +195,70 @@
     flex-direction: column;
     align-items: flex-start;
     width: 35%
+  }
+
+  .food-entries-container {
+    width: 100%;
+    border: 1px solid #181c24;
+    border-radius: 5px;
+    padding: 3px 0 3px 0;
+    font-size: 13px;
+    margin-bottom: 15px;
+  }
+
+  .food-entry-bar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
+
+  .food-category-icon {
+    width: 25px;
+    height: 25px;
+  }
+
+  .add-meal-form-container button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+    color: white;
+  }
+
+  .add-meal-form-container button[type="button"] {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  .add-meal-form-container button[type="button"]:hover {
+      background-color: #45a049;
+  }
+
+  .add-meal-form-container button[type="submit"] {
+      background-color: #008CBA;
+      color: white;
+  }
+
+  .add-meal-form-container button[type="submit"]:hover {
+      background-color: #007bb8;
+  }
+
+  .add-meal-form-container button[type="reset"] {
+      background-color: #f44336;
+      color: white;
+  }
+
+  .add-meal-form-container button[type="reset"]:hover {
+      background-color: #da322b;
+  }
+
+  .buttons-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
   }
