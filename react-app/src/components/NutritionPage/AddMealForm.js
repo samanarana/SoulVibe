@@ -26,11 +26,17 @@ function AddMealForm() {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
   const [mealDate, setMealDate] = useState(new Date().toISOString().split('T')[0]);
-  const [mealType, setMealType] = useState("breakfast");
+  const [mealType, setMealType] = useState("");
   const [nutritionDetails, setNutritionDetails] = useState([initialNutritionDetail]);
+  const [foodEntries, setFoodEntries] = useState([]);
 
   const addNutritionDetail = () => {
-    setNutritionDetails([...nutritionDetails, { ...initialNutritionDetail }]);
+    if (nutritionDetails[0].description && nutritionDetails[0].amount) {
+        setFoodEntries(prevEntries => [...prevEntries, nutritionDetails[0]]);
+        setNutritionDetails([{ category_id: '', description: '', amount: '' }]);
+    } else {
+        console.log("Current nutrition details are incomplete.");
+    }
   };
 
   const handleNutritionDetailChange = (index, field, value) => {
@@ -47,19 +53,56 @@ function AddMealForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const combinedEntries = [...foodEntries];
+
+    // Add the current nutrition detail if it's filled
+    if (nutritionDetails[0].description && nutritionDetails[0].amount) {
+        combinedEntries.push(nutritionDetails[0]);
+    }
+
     const formData = {
-      date: mealDate,
-      meal_type: mealType,
-      nutritionDetails,
-      userId: sessionUser.id,
+        date: mealDate,
+        meal_type: mealType,
+        nutrition_details: combinedEntries,
+        userId: sessionUser.id,
     };
+
+    // Dispatch the thunk action
     dispatch(createNutritionThunk(formData));
+
+    // Reset the form immediately after dispatch
+    resetForm();
   };
+
+  const resetForm = () => {
+      setMealDate(new Date().toISOString().split('T')[0]);
+      setMealType("");
+      setNutritionDetails([{ category_id: '', description: '', amount: '' }]);
+      setFoodEntries([]);
+  };
+
+
+
+
+  // Function to return the correct icon based on the category
+  const getCategoryIcon = (categoryId) => {
+    switch (categoryId) {
+      case 'fruits': return fruitsIcon;
+      case 'vegetables': return veggiesIcon;
+      case 'proteins': return proteinIcon;
+      case 'grains': return breadIcon;
+      case 'dairy': return dairyIcon;
+      case 'dessert': return dessertIcon;
+      case 'drinks': return drinksIcon;
+      default: return '';
+    }
+  };
+
 
   return (
     <div className="add-meal-form-container">
 
-        <form id="add-meal-form" onSubmit={handleSubmit}>
+        <form id="add-meal-form" onSubmit={handleSubmit} onReset={resetForm}>
             <div className="date-title-container">
               <p className="title-meal-form">Add a Meal!</p>
               <label htmlFor="meal-date"></label>
@@ -221,10 +264,24 @@ function AddMealForm() {
             ))}
             </div>
 
-            <button type="button" onClick={addNutritionDetail}>Add More</button>
-            <input type="hidden" id="user-id" name="userId" value={sessionUser.id} />
-            <button type="submit">Submit</button>
-            <button type="reset">Reset</button>
+            {foodEntries.length > 0 && (
+              <div className="food-entries-container">
+                  {foodEntries.map((detail, index) => (
+                      <div key={index} className="food-entry-bar">
+                          <img src={getCategoryIcon(detail.category_id)} alt={detail.category_id} className="food-category-icon" />
+                          <span>{detail.description}</span>
+                          <span>{detail.amount}</span>
+                      </div>
+                  ))}
+              </div>
+            )}
+
+            <div className="buttons-container">
+              <button type="button" onClick={addNutritionDetail}>Add More</button>
+              <input type="hidden" id="user-id" name="userId" value={sessionUser.id} />
+              <button type="submit" onClick={handleSubmit}>Submit</button>
+              <button type="reset">Reset</button>
+            </div>
         </form>
     </div>
   );
