@@ -1,59 +1,109 @@
-/* Page Container */
-.page-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 20px;
-    margin-top: 50px;
-  }
+.nutrition-page-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 20px;
+}
 
-  .add-nutrition-form {
-    margin-top: 50px;
-  }
+.date-cards-container {
+  width: 425px;
+  height: 550px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 20px 30px 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+.date-navigator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.date-navigator button {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.date-navigator input[type="date"] {
+  padding: 5px;
+  background-color: #f9f9f9;
+  border: none !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.cards-container-hello {
+  display: flex;
+  overflow-x: auto;
+  padding: 10px;
+  justify-content: center;
+}
+
+.nutrition-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  cursor: pointer;
+  width: 100px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0; /* Prevent cards from shrinking */
+  margin-right: -40px; /* Adjust negative margin to control overlap */
+  transition: transform 0.3s ease, z-index 0.3s ease;
+  position: relative; /* Use relative positioning */
+}
+
+.nutrition-card:last-child {
+  margin-right: 0; /* Prevent extra space on the last card */
+}
+
+.nutrition-card:hover {
+  z-index: 10; /* Bring card to front on hover */
+  transform: scale(1.1); /* Optional: scale up the card on hover */
+}
+
+.selected-card {
+  transform: scale(1.1); /* Keep the selected card scaled up */
+  z-index: 10; /* Ensure it stays on top */
+}
+
+.nutrition-card-icon {
+  width: 120px;
+  height: 120px;
+}
 
 
-  /* Date Cards and Add Nutrition Form Containers */
-  .date-cards-container,
-  .add-nutrition-form {
-    flex: 1; /* Each section takes up half of the page */
-    max-width: calc(50% - 10px); /* Adjust for the gap */
-  }
 
-  /* Date Navigator Styling */
-  .date-navigator {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
 
-  .date-navigator button {
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-    cursor: pointer;
-  }
+.meal-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f9f9f9;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  margin-top: 20px;
+}
 
-  .date-navigator input[type="date"] {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
+.meal-details {
+  text-decoration: none;
+}
 
-  /* Cards Container */
-  .cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  /* Individual Nutrition Card */
-  .nutrition-card {
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 10px;
-    width: calc(100% / 3 - 10px); /* Adjust based on desired number of cards per row */
-  }
+.food-category-icon {
+  width: 25px;
+  height: 25px;
+}

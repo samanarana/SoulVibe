@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createNutritionThunk } from '../../store/nutrition';
+import { fetchNutritionsThunk, createNutritionThunk } from '../../store/nutrition';
 import './AddMealForm.css'
 
 import breakfastIcon from './Icons/breakfast.png';
 import lunchIcon from './Icons/lunch.png';
 import dinnerIcon from './Icons/dinner.png';
 import snackIcon from './Icons/snack.png';
+import dessert2Icon from './Icons/dessert2.png';
 
 import fruitsIcon from './CategoryImage/fruits.png';
 import veggiesIcon from './CategoryImage/veggies.png';
@@ -16,16 +17,24 @@ import dairyIcon from './CategoryImage/dairy.png';
 import dessertIcon from './CategoryImage/dessert.png';
 import drinksIcon from './CategoryImage/drinkss.png';
 
-const initialNutritionDetail = {
-  category_id: '',
-  description: '',
-  amount: '',
-};
 
 function AddMealForm() {
+
+  const initialNutritionDetail = {
+    category_id: '',
+    description: '',
+    amount: '',
+  };
+
+  function getLocalDate() {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    return now.toISOString().split('T')[0];
+  }
+
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
-  const [mealDate, setMealDate] = useState(new Date().toISOString().split('T')[0]);
+  const [mealDate, setMealDate] = useState(getLocalDate());
   const [mealType, setMealType] = useState("");
   const [nutritionDetails, setNutritionDetails] = useState([initialNutritionDetail]);
   const [foodEntries, setFoodEntries] = useState([]);
@@ -33,7 +42,7 @@ function AddMealForm() {
   const addNutritionDetail = () => {
     if (nutritionDetails[0].description && nutritionDetails[0].amount) {
         setFoodEntries(prevEntries => [...prevEntries, nutritionDetails[0]]);
-        setNutritionDetails([{ category_id: '', description: '', amount: '' }]);
+        setNutritionDetails([initialNutritionDetail]);
     } else {
         console.log("Current nutrition details are incomplete.");
     }
@@ -67,17 +76,20 @@ function AddMealForm() {
         userId: sessionUser.id,
     };
 
-    // Dispatch the thunk action
+    // Dispatch create
     dispatch(createNutritionThunk(formData));
 
-    // Reset the form immediately after dispatch
+    // Dispatch to fetch latest nutrition data
+  dispatch(fetchNutritionsThunk());
+
+    // Reset the form
     resetForm();
   };
 
   const resetForm = () => {
       setMealDate(new Date().toISOString().split('T')[0]);
       setMealType("");
-      setNutritionDetails([{ category_id: '', description: '', amount: '' }]);
+      setNutritionDetails([initialNutritionDetail]);
       setFoodEntries([]);
   };
 
@@ -159,6 +171,17 @@ function AddMealForm() {
                     />
                     <label className="meal-type-label" onClick={() => setMealType('snack')}>Snack</label>
                   </div>
+
+                  <div className="meal-type-item">
+                    <img
+                      src={dessert2Icon}
+                      alt="Dessert"
+                      className={mealType === 'dessert' ? 'meal-type-icon selected' : 'meal-type-icon'}
+                      onClick={() => setMealType('dessert')}
+                    />
+                    <label className="meal-type-label" onClick={() => setMealType('dessert')}>Dessert</label>
+                  </div>
+
                 </div>
               </div>
 
