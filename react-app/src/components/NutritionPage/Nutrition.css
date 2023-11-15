@@ -54,7 +54,7 @@
   overflow: hidden;
   padding: 10px;
   gap: 15px;
-  justify-content: center;
+  justify-content: flex-start;
   flex: 1;
 }
 
@@ -103,8 +103,8 @@
 }
 
 .nutrition-card-icon {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
 }
 
 .meal-details-container {
