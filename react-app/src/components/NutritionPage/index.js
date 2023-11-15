@@ -37,7 +37,6 @@ function NutritionPage() {
   const nutritionsForSelectedDate = Object.values(nutritions).filter(
     (nutrition) => nutrition.date === selectedDate
   );
-  console.log('Nutritions for selected date:', nutritionsForSelectedDate);
 
   const handleDateChange = (offset) => {
     const currentDate = new Date(selectedDate);
