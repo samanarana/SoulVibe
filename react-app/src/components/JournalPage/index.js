@@ -32,7 +32,6 @@ function JournalPage() {
   }, [journals]);
 
   const handleDateSelection = (selectedDate) => {
-    console.log("Selected date: ", selectedDate); // Log selected date
     setCurrentDate(selectedDate);
     const selectedJournalEntry = journals[selectedDate];
 

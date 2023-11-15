@@ -181,11 +181,13 @@ const ExercisePage = () => {
                   exerciseType.length < 4 ||
                   isNaN(duration) ||
                   duration <= 0 ||
-                  !intensity
+                  !intensity ||
+                  isSubmitted
                 }
               >
                 {isEditing ? 'Save Changes' : 'Add Exercise'}
           </button>
+            {isSubmitted && <p>Submitting...</p>}
           </div>
         </div>
       </div>

@@ -31,17 +31,20 @@ function NutritionPage() {
 
 
   useEffect(() => {
-    dispatch(fetchNutritionsThunk());
+    dispatch(fetchNutritionsThunk())
   }, [dispatch]);
 
   const nutritionsForSelectedDate = Object.values(nutritions).filter(
     (nutrition) => nutrition.date === selectedDate
   );
+  console.log('Nutritions for selected date:', nutritionsForSelectedDate);
 
   const handleDateChange = (offset) => {
     const currentDate = new Date(selectedDate);
     currentDate.setDate(currentDate.getDate() + offset);
     setSelectedDate(currentDate.toISOString().split('T')[0]);
+    setSelectedMeal(null);
+    setSelectedCardId(null);
   };
 
   const handleCardClick = (nutritionId) => {
@@ -54,26 +57,26 @@ function NutritionPage() {
   const scrollAmount = 100; // Width of card
   const scrollDuration = 300; // Duration of scroll in milliseconds
 
-  const smoothScroll = (scrollBy) => {
-    const element = cardContainerRef.current;
-    if (!element) return;
+    const smoothScroll = (scrollBy) => {
+      const element = cardContainerRef.current;
+      if (!element) return;
 
-    let startTime = null;
+      let startTime = null;
 
-    const animateScroll = (currentTime) => {
-      if (!startTime) startTime = currentTime;
-      const timeElapsed = currentTime - startTime;
-      const progress = Math.min(timeElapsed / scrollDuration, 1);
+      const animateScroll = (currentTime) => {
+        if (!startTime) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / scrollDuration, 1);
 
-      element.scrollLeft += progress * scrollBy;
+        element.scrollLeft += progress * scrollBy;
 
-      if (timeElapsed < scrollDuration) {
-        window.requestAnimationFrame(animateScroll);
-      }
+        if (timeElapsed < scrollDuration) {
+          window.requestAnimationFrame(animateScroll);
+        }
+      };
+
+      window.requestAnimationFrame(animateScroll);
     };
-
-    window.requestAnimationFrame(animateScroll);
-  };
 
   const handleLeftClick = () => {
     smoothScroll(-scrollAmount); // Scrolls left
