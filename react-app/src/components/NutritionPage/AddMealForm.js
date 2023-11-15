@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchNutritionsThunk, createNutritionThunk } from '../../store/nutrition';
 import './AddMealForm.css'
@@ -38,6 +38,18 @@ function AddMealForm() {
   const [mealType, setMealType] = useState("");
   const [nutritionDetails, setNutritionDetails] = useState([initialNutritionDetail]);
   const [foodEntries, setFoodEntries] = useState([]);
+  const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
+
+  useEffect(() => {
+    const checkIfSubmitEnabled = () => {
+      return (
+        mealType !== "" &&
+        nutritionDetails.some(detail => detail.category_id !== '' && detail.description.length >= 3 && detail.amount.length >= 3)
+      );
+    };
+
+    setIsSubmitEnabled(checkIfSubmitEnabled());
+  }, [mealType, nutritionDetails]);
 
   const addNutritionDetail = () => {
     if (nutritionDetails[0].description && nutritionDetails[0].amount) {
@@ -299,12 +311,12 @@ function AddMealForm() {
               </div>
             )}
 
-            <div className="buttons-container">
-              <button type="button" onClick={addNutritionDetail}>Add More</button>
-              <input type="hidden" id="user-id" name="userId" value={sessionUser.id} />
-              <button type="submit" onClick={handleSubmit}>Submit</button>
-              <button type="reset">Reset</button>
-            </div>
+              <div className="buttons-container">
+                <button type="button" onClick={addNutritionDetail}>Add More</button>
+                <input type="hidden" id="user-id" name="userId" value={sessionUser.id} />
+                <button type="submit" disabled={!isSubmitEnabled}>Submit</button>
+                <button type="reset">Reset</button>
+              </div>
         </form>
     </div>
   );
