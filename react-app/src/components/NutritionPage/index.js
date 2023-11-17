@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchNutritionsThunk, deleteNutritionThunk } from '../../store/nutrition';
+import { fetchNutritionsThunk, updateNutritionThunk, deleteNutritionThunk } from '../../store/nutrition';
 import AddMealForm from './AddMealForm';
+import EditMealModal from './EditMealModal';
 import './Nutrition.css'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -28,6 +29,7 @@ function NutritionPage() {
   const [selectedMeal, setSelectedMeal] = useState(null);
   const [activeCard, setActiveCard] = useState(null);
   const [selectedCardId, setSelectedCardId] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
 
   useEffect(() => {
@@ -102,6 +104,23 @@ function NutritionPage() {
     setSelectedCardId(null);
   };
 
+  // Function to open the edit modal
+  const openEditModal = () => {
+    setIsEditModalOpen(true);
+  };
+
+  // Function to close the edit modal
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+  };
+
+  // Function to handle the update
+  const handleUpdateMeal = async (updatedMealData) => {
+    await dispatch(updateNutritionThunk(selectedCardId, updatedMealData));
+    closeEditModal();
+    dispatch(fetchNutritionsThunk())
+  };
+
   const getMealIcon = (meal_type) => {
     switch(meal_type) {
       case 'breakfast': return breakfastIcon;
@@ -172,8 +191,17 @@ function NutritionPage() {
                     </li>
                   ))}
                 </ul>
+                <button className="edit-meal-button" onClick={openEditModal}>~Edit Meal~</button>
               </div>
             </div>
+          )}
+
+          {isEditModalOpen && (
+            <EditMealModal
+              mealData={selectedMeal}
+              onUpdateMeal={handleUpdateMeal}
+              onClose={closeEditModal}
+            />
           )}
 
           <div className="delete-buttons">
