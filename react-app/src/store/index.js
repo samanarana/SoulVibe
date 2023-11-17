@@ -5,6 +5,8 @@ import exercise from './exercise'
 import journal from './journal'
 import meditation from './meditation'
 import nutrition from './nutrition'
+import sleep from './sleep'
+import stress from './stress'
 
 
 const rootReducer = combineReducers({
@@ -13,6 +15,8 @@ const rootReducer = combineReducers({
   journal,
   meditation,
   nutrition,
+  sleep,
+  stress
 });
 
 
