@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createMeditationThunk } from '../../store/meditation';
+import { createMeditationThunk, fetchMeditationsThunk  } from '../../store/meditation';
 import './MeditationPage.css'
 import SleepSection from './SleepSection';
 import StressSection from './StressSection';
@@ -12,6 +12,22 @@ function MeditationPage() {
   const dispatch = useDispatch();
   const meditations = useSelector(state => state.meditation.meditations);
 
+  useEffect(() => {
+    dispatch(fetchMeditationsThunk());
+  }, [dispatch]);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const offset = date.getTimezoneOffset();
+    date.setMinutes(date.getMinutes() - offset);
+    return date.toLocaleDateString('en-US', { timeZone: 'CST' });
+  };
+
+  const handleDateChange = (e) => {
+    const localDate = new Date(e.target.value + 'T00:00');
+    setDate(localDate.toISOString().split('T')[0]);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newMeditation = { date, duration, meditation_type: meditationType };
@@ -21,6 +37,8 @@ function MeditationPage() {
     setMeditationType('');
   };
 
+  const sortedMeditations = Object.values(meditations).sort((a, b) => new Date(b.date) - new Date(a.date));
+
   return (
     <div className="meditation-page-container">
 
@@ -28,27 +46,30 @@ function MeditationPage() {
 
       <div className="meditation-form-container">
         <div className="form-meditations">
+          <p className="title-meditation">What was today's meditation like?</p>
           <form onSubmit={handleSubmit}>
             <div>
               <label>Date:</label>
               <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
             </div>
             <div>
-              <label>Duration (minutes):</label>
-              <input type="number" value={duration} onChange={(e) => setDuration(e.target.value)} />
+              <label>Duration:</label>
+              <input type="number" value={duration} onChange={(e) => setDuration(e.target.value)} placeholder="# Minutes"/>
             </div>
             <div>
               <label>Type:</label>
               <input type="text" value={meditationType} onChange={(e) => setMeditationType(e.target.value)} placeholder="Type of Meditation"/>
             </div>
-            <button type="submit">Add Meditation</button>
+            <div className="form-button-container">
+            <button type="submit">ADD SESSION</button>
+            </div>
           </form>
         </div>
         <div className="my-meditations-section">
-          <h3>Your Meditation Sessions</h3>
+          <p className="title-meditation">My Meditation Practices</p>
           <ul>
-            {Object.values(meditations).map(meditation => (
-              <li key={meditation.id}>{`Date: ${meditation.date}, Duration: ${meditation.duration} minutes, Type: ${meditation.meditation_type}`}</li>
+            {sortedMeditations.map(meditation => (
+              <li key={meditation.id}>{`${formatDate(meditation.date)}, ${meditation.meditation_type}`}</li>
             ))}
           </ul>
         </div>
