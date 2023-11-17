@@ -8,3 +8,5 @@ from .meditation import Meditation
 from .nutrition import Nutrition
 from .nutritionAssociation import NutritionDetails
 from .reminder import Reminder
+from .sleep import Sleep
+from .stress import Stress
