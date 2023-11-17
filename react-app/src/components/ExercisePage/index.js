@@ -23,6 +23,7 @@ const ExercisePage = () => {
     dispatch(fetchExercisesThunk());
   }, [dispatch]);
 
+
   const validateForm = () => {
     const validationErrors = {};
     if (!date) {
@@ -54,11 +55,19 @@ const ExercisePage = () => {
   };
 
   const formatDate = (dateString) => {
-    const dateObj = new Date(dateString);
-    const month = dateObj.getMonth() + 1;
-    const day = dateObj.getDate();
-    const year = dateObj.getFullYear();
-    return `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year}`;
+    // Split the dateString into components
+    const parts = dateString.split(' ');
+    const dateParts = parts[1] + ' ' + parts[2] + ' ' + parts[3];
+
+    // Parse the date as UTC
+    const dateObj = new Date(dateParts + ' UTC');
+
+    // Format the date
+    const year = dateObj.getUTCFullYear();
+    const month = (dateObj.getUTCMonth() + 1).toString().padStart(2, '0');
+    const day = dateObj.getUTCDate().toString().padStart(2, '0');
+
+    return `${month}/${day}/${year}`;
   };
 
   const handleViewDetails = (exerciseId) => {
@@ -96,7 +105,6 @@ const ExercisePage = () => {
     }
 
     resetFormToAddMode();
-    setIsSubmitted(false);
   };
 
   const resetFormToAddMode = () => {
@@ -112,6 +120,16 @@ const ExercisePage = () => {
   const handleRemoveExercise = (id) => {
     dispatch(deleteExerciseThunk(id));
   };
+
+  const getIntensityEmoji = (intensity) => {
+    switch (intensity) {
+      case 'Low': return 'Low 💧';
+      case 'Moderate': return 'Moderate 💧🔥';
+      case 'High': return 'High 🔥';
+      default: return '';
+    }
+  };
+
 
   return (
     <div className="full-page-container">
@@ -133,7 +151,7 @@ const ExercisePage = () => {
                 <span>
                   Duration: {exercise.duration} {exercise.duration === 1 ? 'minute' : 'minutes'}
                 </span>
-                <span>Intensity: {exercise.intensity}</span>
+                <span>Intensity: {getIntensityEmoji(exercise.intensity)}</span>
                 <button className="view-button" onClick={() => handleViewDetails(exercise.id)}>
                   <FontAwesomeIcon icon={faEye} style={{color: "#181d25"}} />
                 </button>
@@ -146,22 +164,27 @@ const ExercisePage = () => {
         </div>
 
         <div className="exercise-input-container">
+        {isEditing ? <p>Edit Your Workout!</p> : <p>Add Your Workout!</p>}
           <div className="input-field input-field-date">
+            <label htmlFor="dateInput">Date</label>
             <input type="date" value={date} onChange={handleDateChange} readOnly={isEditing} />
             {errors.date && <div className="error-message">{errors.date}</div>}
           </div>
 
           <div className="input-field input-field-type">
+            <label htmlFor="exerciseTypeInput">Exercise Type</label>
             <input type="text" placeholder="Exercise Type" value={exerciseType} onChange={handleExerciseTypeChange} />
             {errors.exerciseType && <div className="error-message">{errors.exerciseType}</div>}
           </div>
 
           <div className="input-field input-field-duration">
+            <label htmlFor="durationInput">Duration (min)</label>
             <input type="text" placeholder="Duration (min)" value={duration} onChange={handleDurationChange} />
             {errors.duration && <div className="error-message">{errors.duration}</div>}
           </div>
 
           <div className="input-field input-field-intensity">
+            <label htmlFor="intensityInput">Intensity</label>
             <select value={intensity} onChange={handleIntensityChange} defaultValue="">
               <option value="" disabled>Select Intensity</option>
               <option value="Low">Low</option>
@@ -170,7 +193,6 @@ const ExercisePage = () => {
             </select>
             {errors.intensity && <div className="error-message">{errors.intensity}</div>}
           </div>
-
 
           <div className="submit-button-container">
                 <button
@@ -187,7 +209,6 @@ const ExercisePage = () => {
               >
                 {isEditing ? 'Save Changes' : 'Add Exercise'}
           </button>
-            {isSubmitted && <p>Submitting...</p>}
           </div>
         </div>
       </div>
