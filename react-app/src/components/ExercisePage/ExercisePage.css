@@ -14,21 +14,22 @@
 }
 
 .exercise-list-container {
-    width: 300px;
-    height: 400px;
+    width: 330px;
+    height: 450px;
     overflow-y: auto;
     margin: 1rem 1.5rem 1rem 1.5rem;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.35);
+    padding: 20px;
 }
 
 .exercise-list-container::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
 }
 
 .exercise-list-container::-webkit-scrollbar-thumb {
-    background-color: #181c24;
+    background-color: #cccccc;
     border-radius: 4px;
 }
 
@@ -83,7 +84,7 @@
 .delete-button {
     padding: .35rem .35rem;
     border: none;
-    background-color: #db504a;
+    background-color: #f44336;
     color: white;
     border-radius: 4px;
     cursor: pointer;
@@ -94,13 +95,13 @@
 }
 
 .delete-button:hover {
-    background-color: #b23b3b;
+    background-color: #b83228;
 }
 
 .view-button {
     padding: .35rem .35rem;
     border: none;
-    background-color: rgb(184, 191, 230);
+    background-color: rgb(206, 206, 253);
     color: white;
     border-radius: 4px;
     cursor: pointer;
@@ -111,6 +112,9 @@
     margin-right: 30px;
 }
 
+.view-button:hover {
+    background-color: rgb(153, 153, 252);
+}
 .exercise-input-container {
     display: grid;
     grid-template-columns: 1fr;
@@ -118,14 +122,19 @@
     justify-content: center;
     align-items: start;
     margin: 1rem;
-    margin-left: 2rem;
-    max-width: 200px;
+    margin-left: 3rem;
+    max-width: 300px;
 }
 
+.exercise-input-container p {
+    text-align: center;
+    margin: 0;
+    font-size: 20px;
+}
 .input-field {
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -135,14 +144,18 @@
 .input-field input,
 .input-field select {
     background: rgb(243, 243, 255);
-    border: 1px solid rgb(0, 0, 0);
-    box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+    border: none;
+    box-shadow: 0px 1px 6px rgba(0,0,0,0.3);
     border-radius: 4px;
-    padding: 9px 12px;
+    padding: 9px 10px;
     margin: 8px 0;
     font-size: 16px;
     transition: border-color 0.3s, box-shadow 0.3s;
     outline: none;
+}
+
+.input-field label {
+    font-size: 12px;
 }
 
 .input-field input::placeholder {
