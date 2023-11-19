@@ -23,7 +23,7 @@ class Journal(db.Model):
         return {
             'id': self.id,
             'userId': self.userId,
-            'date': self.date,
+            "date": self.date.strftime('%Y-%m-%d'),
             'content': self.content,
             'mood_emoji': self.mood_emoji,
         }

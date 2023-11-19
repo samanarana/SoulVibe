@@ -20,6 +20,8 @@ class User(db.Model, UserMixin):
     exercises = db.relationship("Exercise", back_populates="user")
     reminders = db.relationship("Reminder", back_populates="user")
     nutritions = db.relationship("Nutrition", back_populates="user")
+    sleeps = db.relationship("Sleep", back_populates="user")
+    stresses = db.relationship("Stress", back_populates="user")
 
 
     @property

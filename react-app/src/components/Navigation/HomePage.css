@@ -1,0 +1,122 @@
+.homepage section {
+    margin: 0;
+    padding: 0;
+  }
+
+/* WELCOME SECTION */
+.welcome-section {
+    height: 230px;
+    background-color: #181c24;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.welcome {
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.message2 {
+    text-align: center;
+    color: white;
+}
+
+.stars-container {
+    color: yellow;
+    font-size: 24px;
+    padding: 5px 0;
+}
+
+/* PHILOSOPHY SECTION */
+.philosophy-page-container {
+    margin: 30px 30px 20px 30px;
+}
+
+.philosophy-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.image-container img {
+    max-width: 100%;;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-right: 8px;
+}
+
+.middle-image img,
+.left-image img,
+.right-image img {
+    height: 300px;
+    width: 200px;
+}
+
+.text-block {
+    flex: 1;
+    padding: 10px 10px 10px 20px;
+    border-radius: 10px;
+}
+
+.little {
+    color: grey;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: -10px;
+    margin-bottom: 0px;
+}
+
+.big {
+    color: #181c24;
+    font-size: 35px;
+    font-weight: bold;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+
+.texts {
+    font-size: 12px;
+    color: #181c24;
+}
+
+
+/* FOOTER SECTION */
+.footer-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #181c24;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    height: 220px;
+  }
+
+  .footer-title {
+    align-self: flex-start;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-left: 40px;
+
+  }
+
+  .message3 {
+    margin: 20px 0;
+    font-size: 18px;
+  }

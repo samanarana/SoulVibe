@@ -17,6 +17,8 @@ function Navigation({ isLoaded }) {
             <NavLink exact to="/" className="nav-home-link">SoulVibe</NavLink>
           </h1>
 
+          {sessionUser && <PageNav />}
+
           {isLoaded && (
             <div className="profile-container">
               <ProfileButton user={sessionUser} />
@@ -25,8 +27,6 @@ function Navigation({ isLoaded }) {
 
         </div>
       </nav>
-
-      <PageNav />
     </div>
   );
 }

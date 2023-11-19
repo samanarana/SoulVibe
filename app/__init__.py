@@ -5,7 +5,7 @@ from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
 
-from .models import db, User, Reminder, nutritionAssociation, Nutrition, Meditation, Journal, foodCategory, Exercise
+from .models import db, User, Reminder, nutritionAssociation, Nutrition, Meditation, Journal, foodCategory, Exercise, Sleep, Stress
 
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
@@ -14,6 +14,8 @@ from .api.exercise_routes import exercise_routes
 from .api.meditation_routes import meditation_routes
 from .api.nutrition_routes import nutrition_routes
 from .api.reminder_routes import reminder_routes
+from .api.sleep_routes import sleep_routes
+from .api.stress_routes import stress_routes
 from.api.resource_routes import resource_routes
 from .seeds import seed_commands
 from .config import Config
@@ -42,6 +44,8 @@ app.register_blueprint(meditation_routes, url_prefix='/api/meditation')
 app.register_blueprint(nutrition_routes, url_prefix='/api/nutrition')
 app.register_blueprint(reminder_routes, url_prefix='/api/reminders')
 app.register_blueprint(resource_routes, url_prefix='/api/resources')
+app.register_blueprint(sleep_routes, url_prefix='/api/sleep')
+app.register_blueprint(stress_routes, url_prefix='/api/stress')
 db.init_app(app)
 Migrate(app, db)
 

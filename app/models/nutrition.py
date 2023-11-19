@@ -19,7 +19,7 @@ class Nutrition(db.Model):
         return {
             'id': self.id,
             'userId': self.userId,
-            'date': self.date,
+            'date': self.date.isoformat(),
             'meal_type': self.meal_type,
             'nutrition_details': [detail.to_dict() for detail in self.nutrition_details]
         }
