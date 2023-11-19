@@ -10,7 +10,7 @@ function SleepSection() {
   const sleeps = useSelector(state => state.sleep.sleeps);
 
   useEffect(() => {
-    dispatch(fetchSleepsThunk()); // Fetch sleep data on component mount
+    dispatch(fetchSleepsThunk());
   }, [dispatch]);
 
   const handleSubmit = (e) => {
@@ -21,11 +21,7 @@ function SleepSection() {
     setQualityOfSleep('');
   };
 
-  // Function to play sleep sound (example implementation)
-  const playSleepSound = () => {
-    // You'll need to add the actual logic for playing the sound
-    console.log('Playing sleep sound...');
-  };
+  // Figure out spotif api and add here
 
   return (
     <div className="sleep-page-container">
@@ -54,7 +50,7 @@ function SleepSection() {
 
 
     <div>
-    <button onClick={playSleepSound}>Play Sleep Sound</button>
+    <button>Play Sleep Sound</button>
     </div>
 
     </div>
