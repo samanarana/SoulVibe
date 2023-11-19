@@ -22,8 +22,8 @@ def seed():
         # the schema name (see comment in users.py undo_users function).
         # Make sure to add all your other model's undo functions below
         undo_users()
-        undo_nutritions()
         undo_food_categories()
+        undo_nutritions()
         undo_exercises()
         undo_journals()
         undo_meditations()
@@ -39,7 +39,15 @@ def seed():
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():
-    undo_nutritions()
+    undo_meditations()
+    undo_journals()
+    undo_exercises()
     undo_food_categories()
+    undo_nutritions()
     undo_users()
+
+
+
+
+
     # Add other undo functions here
