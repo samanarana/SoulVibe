@@ -25,7 +25,7 @@ function StressSection() {
     };
     dispatch(createStressThunk(newStressData));
     // Clear form fields after submission
-    // ... Reset states
+
   };
 
   // Logic for providing suggestions based on stress level
@@ -41,8 +41,6 @@ function StressSection() {
     <div className="stress-section-container">
       <h2>Stress Assessment</h2>
       <form onSubmit={handleSubmit}>
-        {/* Form fields for stress assessment */}
-        {/* Example input: */}
         <div>
           <label>Stress Level:</label>
           <select value={stressLevel} onChange={(e) => setStressLevel(e.target.value)}>
@@ -52,13 +50,12 @@ function StressSection() {
             <option value="High">High</option>
           </select>
         </div>
-        {/* Add more inputs for other fields */}
+
         <button type="submit">Submit</button>
       </form>
       <div className="suggestions">
         <h3>Suggestions for You</h3>
         <p>{provideSuggestions()}</p>
-        {/* Links to other resources */}
         <a href="/exercise">Go to Exercise Page</a>
         <a href="/journal">Go to Journal Page</a>
       </div>
