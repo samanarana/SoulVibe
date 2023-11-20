@@ -1,48 +1,94 @@
 .sleep-page-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: -55px 20px 30px 0px;
-    border-radius: 8px;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  border-radius: 8px;
+}
+.title-sleep {
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: -20px;
+  margin-top: 0;
+}
 
-  .sleep-form {
-    width: 225px;
-    height: 225px;
-    padding: 20px;
-    background-color: #f8f8f8;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
-    display: flex;
-    flex-direction: column;
-  }
+.sleep-form {
+  width: 250px;
+  padding: 25px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
 
-  .sleep-form-container label {
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
+.sleep-form label {
+  display: block;
+  margin-bottom: 6px;
+  margin-top: 15px;
+  font-size: 13px;
+  color: #333;
+}
 
-  .sleep-form-container input[type="date"],
-  .sleep-form-container input[type="number"],
-  .sleep-form-container input[type="text"] {
+.sleep-page-container .sleep-form select option[disabled] {
+  color: #999;
+}
+
+.sleep-form select,
+.sleep-form input[type="number"],
+.sleep-form input[type="text"] {
+    width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 16px;
-  }
+    font-size: 14px;
+    background-color: white;
+    box-sizing: border-box;
+}
 
-  .sleep-form-container button {
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
+.button-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.sleep-form button[type="button"] {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  padding: 5px;
+  height: 80%;
+  width: 28%;
+}
+
+.sleep-form select {
     cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-  }
+}
 
-  .sleep-form-container button:hover {
-    background-color: #0056b3;
-  }
+.form-button-container {
+  margin-top: 20px;
+}
+
+.sleep-form button[type="button"].selected {
+  background-color: #007bff;
+  color: white;
+}
+
+.sleep-form button[type="submit"] {
+  padding: 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.sleep-form button[type="submit"]:hover {
+  background-color: #218838;
+}

@@ -25,39 +25,84 @@ function StressSection() {
     };
     dispatch(createStressThunk(newStressData));
     // Clear form fields after submission
-
-  };
-
-  // Logic for providing suggestions based on stress level
-  const provideSuggestions = () => {
-    if (stressLevel === 'High') {
-      return 'Consider practicing deep breathing exercises and engaging in regular physical activity.';
-    }
-    // Add more conditions based on the survey responses
-    return 'Keep maintaining good habits!';
   };
 
   return (
     <div className="stress-section-container">
-      <h2>Stress Assessment</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Stress Level:</label>
-          <select value={stressLevel} onChange={(e) => setStressLevel(e.target.value)}>
-            <option value="">Select...</option>
-            <option value="Low">Low</option>
-            <option value="Moderate">Moderate</option>
-            <option value="High">High</option>
-          </select>
-        </div>
+      <div className="stress-section">
+        <p className="title-stress">What's your stress like?</p>
+        <form onSubmit={handleSubmit}>
+          {/* Stress Level */}
+          <div>
+            <label>Stress level?</label>
+            <select value={stressLevel} onChange={(e) => setStressLevel(e.target.value)}>
+              <option value="" disabled selected></option>
+              {["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"].map(level => (
+                <option key={level} value={level}>{level}</option>
+              ))}
+            </select>
+          </div>
 
-        <button type="submit">Submit</button>
-      </form>
-      <div className="suggestions">
-        <h3>Suggestions for You</h3>
-        <p>{provideSuggestions()}</p>
-        <a href="/exercise">Go to Exercise Page</a>
-        <a href="/journal">Go to Journal Page</a>
+          {/* Personal Relationships */}
+          <div>
+            <label>Your relationships?</label>
+            <select value={personalRelationships} onChange={(e) => setPersonalRelationships(e.target.value)}>
+              <option value="" disabled selected></option>
+              {["Stable", "Stressful", "Improving", "Strained", "Distant", "Supportive", "Conflictual", "Nonexistent"].map(relationship => (
+                <option key={relationship} value={relationship}>{relationship}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Physical Symptoms */}
+          <div>
+            <label>Any physical symptoms?</label>
+            <select value={physicalSymptoms} onChange={(e) => setPhysicalSymptoms(e.target.value)}>
+              <option value="" disabled selected></option>
+              {["None", "Headaches", "Fatigue", "Muscle Tension", "Digestive Issues", "Sleep Disturbances", "Other"].map(symptom => (
+                <option key={symptom} value={symptom}>{symptom}</option>
+              ))}
+            </select>
+            {physicalSymptoms === 'Other' && <input type="text" placeholder="Describe your symptoms" />}
+          </div>
+
+          {/* Exercise Frequency */}
+          <div>
+            <label>Exercise frequency?</label>
+            <select value={exerciseFrequency} onChange={(e) => setExerciseFrequency(e.target.value)}>
+              <option value="" disabled selected></option>
+              {["Daily", "2-3 times a week", "Once a week", "2-3 times a month", "Rarely", "Never"].map(frequency => (
+                <option key={frequency} value={frequency}>{frequency}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Nutrition Habits */}
+          <div>
+            <label>Nutrition habits?</label>
+            <select value={nutritionHabits} onChange={(e) => setNutritionHabits(e.target.value)}>
+              <option value="" disabled selected></option>
+              {["Balanced Diet", "Home Cooked Meals", "Fast Food Oriented", "Irregular Meals", "Vegetarian", "Vegan", "Low Carb", "High Protein"].map(habit => (
+                <option key={habit} value={habit}>{habit}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Relaxation Activities */}
+          <div>
+            <label>How do you relax?</label>
+            <input
+              type="text"
+              value={relaxationActivities}
+              onChange={(e) => setRelaxationActivities(e.target.value)}
+            />
+          </div>
+
+          <div className="stress-form-button-container">
+            <button type="submit">SUBMIT</button>
+          </div>
+
+        </form>
       </div>
     </div>
   );
