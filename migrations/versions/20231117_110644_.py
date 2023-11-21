@@ -117,6 +117,9 @@ def upgrade():
     sa.Column('date', sa.Date(), nullable=False),
     sa.Column('sleep_duration', sa.Integer(), nullable=False),
     sa.Column('quality_of_sleep', sa.String(), nullable=False),
+    sa.Column('morning_mood', sa.String(), nullable=False),
+    sa.Column('dreams', sa.String(), nullable=False),
+    sa.Column('alcohol', sa.String(), nullable=False),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

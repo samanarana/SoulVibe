@@ -1,0 +1,13 @@
+.circular-progress-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .circular-progress-bar svg {
+    transform: rotate(-90deg);
+  }
+
+  .circular-progress-bar circle {
+    transition: stroke-dashoffset 0.6s ease;
+  }
