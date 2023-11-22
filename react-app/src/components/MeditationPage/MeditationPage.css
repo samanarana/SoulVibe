@@ -28,6 +28,10 @@
   margin-top: 5px;
 }
 
+.meditation-form-container button:hover {
+  background-color: #4658c0;
+}
+
 
 .meditation-section {
   display: flex;

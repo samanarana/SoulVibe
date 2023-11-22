@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   margin: 20px;
-  margin-top: -160px;
+  margin-top: -60px;
   border-radius: 8px;
 }
 .title-sleep {
@@ -95,7 +95,7 @@
 }
 
 
-.sleep-page-container button {
+.sleep-section button {
   padding: 10px;
   background-color: #28a745;
   color: white;
@@ -108,8 +108,8 @@
   margin-top: 5px;
 }
 
-.sleep-page-container button[type="submit"]:hover {
-  background-color: #218838;
+.sleep-section button:hover {
+  background-color: #1f8a36;
 }
 
 
@@ -122,6 +122,7 @@
 
 .title-sleep-score {
   margin-top: 0;
+  text-align: center;
 }
 
 .sleep-patterns {
@@ -131,4 +132,11 @@
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
   margin-top: 35px;
   margin-bottom: 35px;
+}
+
+.sleep-score-message {
+  text-align: center;
+  text-wrap: balance;
+  width: 220px;
+  margin-bottom: 0;
 }
