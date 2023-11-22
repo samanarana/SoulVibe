@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './SleepSection.css';
 
 function SleepForm({ handleSubmit, closeModal }) {
@@ -18,6 +18,7 @@ function SleepForm({ handleSubmit, closeModal }) {
       dreams: dreams,
       alcohol: alcohol
     });
+    closeModal();
     // Reset form fields
     setSleepDuration('');
     setQualityOfSleep('');
@@ -26,20 +27,21 @@ function SleepForm({ handleSubmit, closeModal }) {
     setAlcohol('');
   };
 
-   // Function to handle outside click
-   const handleClickOutside = useCallback((event) => {
-    if (modalRef.current && !modalRef.current.contains(event.target)) {
-      closeModal();
-    }
-  }, [closeModal]);
-
-  // Add event listener when component mounts and remove on unmount
   useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        closeModal();
+      }
+    };
+
+    // Attach the event listener
     document.addEventListener('mousedown', handleClickOutside);
+
+    // Return a cleanup function to remove the event listener
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [handleClickOutside]);
+  }, [closeModal]);
 
   return (
 <div className="sleep-form">

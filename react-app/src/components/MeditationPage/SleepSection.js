@@ -85,8 +85,22 @@ function SleepSection() {
     const averageScore = sleepScores.length > 0 ? totalScore / sleepScores.length : 0;
     return Math.ceil(averageScore);
   };
-  const averageSleepScore = calculateAverageSleepScore();
 
+  const getSleepScoreMessage = (score) => {
+    if (score >= 100) return "Outstanding! You've achieved the ideal sleep pattern. Keep up these fantastic sleep habits.";
+    if (score >= 90) return "Excellent! Your sleep routine is almost perfect. Remember, quality sleep is key to overall health.";
+    if (score >= 80) return "Great work! Your sleep quality is high. Ensure you keep a balanced sleep schedule to maintain this.";
+    if (score >= 70) return "You're doing well with your sleep habits. Keep up the good work and aim for consistency.";
+    if (score >= 60) return "Good job! Your sleep is decent, but a few adjustments could make it even better.";
+    if (score >= 50) return "ou're halfway there! Maintaining a calm and quiet sleeping environment can help further.";
+    if (score >= 40) return "You're on the right track. Keep focusing on healthy sleep habits, like reducing screen time before bed.";
+    if (score >= 30) return "You're making progress, but there's more to be done for a restful night. Look into relaxation techniques before bed.";
+    if (score >= 20) return "There's significant room for enhancing your sleep. Try to establish a consistent sleep schedule";
+    return "Your sleep quality is quite low. Consider adjusting your bedtime routine and environment for better rest.";
+  };
+
+  const averageSleepScore = calculateAverageSleepScore();
+  const sleepScoreMessage = getSleepScoreMessage(averageSleepScore);
 
   return (
     <div className="sleep-page-container">
@@ -98,6 +112,7 @@ function SleepSection() {
       <div className="sleep-patterns">
         <p className="title-sleep-score">Your Latest Sleep Score</p>
           <CircularProgress score={averageSleepScore} />
+          <p className="sleep-score-message">{sleepScoreMessage}</p>
       </div>
 
       <div>

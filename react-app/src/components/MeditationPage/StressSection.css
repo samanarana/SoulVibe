@@ -1,4 +1,4 @@
-.stress-section-container {
+.stress-section-page {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -13,56 +13,54 @@
     margin-top: 5px;
 }
 
-.stress-section {
+.stress-sections {
     width: 250px;
-    height: 510px;
     padding: 20px;
-    margin-top: -40px;
     background-color: #f8f8f8;
     border-radius: 8px;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
   }
 
-  .stress-section-container form {
+  .stress-sections form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 5px;
   }
 
-  .stress-section-container form div {
+  .stress-sections form div {
     display: flex;
     flex-direction: column;
   }
 
-  .stress-section-container label {
+  .stress-sections label {
     margin-bottom: 5px;
     font-size: 14px;
     color: #555;
   }
 
-  .stress-section-container select,
-  .stress-section-container input[type="text"] {
+  .stress-sections select,
+  .stress-sections input[type="text"] {
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 14px;
   }
 
-  .stress-section-container select:focus,
-  .stress-section-container input[type="text"]:focus {
+  .stress-sections select:focus,
+  .stress-sections input[type="text"]:focus {
     outline: none;
     border-color: #007bff;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
   }
 
-  .stress-form-button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 5px;
+  .stress-section-page-form {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
+    padding: 20px;
   }
 
-  .stress-section-container button[type="submit"] {
+  .stress-section-page button {
     padding: 10px 20px;
     background-color: #f88054;
     color: white;
@@ -74,7 +72,7 @@
     transition: background-color 0.3s ease;
   }
 
-  .stress-section-container button[type="submit"]:hover {
+  .stress-section-page button:hover {
     background-color: #c96845;
   }
 
@@ -104,4 +102,28 @@
 
   .suggestions a:hover {
     text-decoration: underline;
+  }
+
+  .stress-sections-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+  }
+
+  .stress-sections button {
+    padding: 10px;
+    background-color: #ff6d38;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: 5px;
+  }
+
+  .stress-sections button[type="submit"]:hover {
+    background-color: #da5b2d;
   }
