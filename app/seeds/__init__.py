@@ -6,6 +6,7 @@ from .exercises import seed_exercises, undo_exercises
 from .journals import seed_journals, undo_journals
 from .meditations import seed_meditations, undo_meditations
 from .sleeps import seed_sleeps, undo_sleeps
+from .stresses import seed_stresses, undo_stresses
 
 from app.models.db import db, environment, SCHEMA
 
@@ -29,6 +30,7 @@ def seed():
         undo_journals()
         undo_meditations()
         undo_sleeps()
+        undo_stresses()
     seed_users()
     seed_nutritions()
     seed_food_categories()
@@ -36,6 +38,7 @@ def seed():
     seed_journals()
     seed_meditations()
     seed_sleeps()
+    seed_stresses()
     # Add other seed functions here
 
 
@@ -49,3 +52,4 @@ def undo():
     undo_journals()
     undo_meditations()
     undo_sleeps()
+    undo_stresses()
