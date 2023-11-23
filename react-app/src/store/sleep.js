@@ -40,7 +40,6 @@ export const fetchSleepsThunk = () => async (dispatch) => {
     });
     if (response.ok) {
       const data = await response.json();
-      console.log("Sleep data received: ", data);
       const sleepsObject = data.sleep.reduce((obj, sleep) => {
         obj[sleep.id] = sleep;
         return obj;

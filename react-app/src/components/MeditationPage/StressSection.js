@@ -1,6 +1,7 @@
 import React from 'react';
 import { useModal } from './../../context/Modal';
 import StressForm from './StressForm';
+import LineGraphStress from './LineGraphStress';
 
 function StressSection() {
   const { setModalContent, closeModal } = useModal();
@@ -14,6 +15,10 @@ function StressSection() {
         <div className="stress-section-page-form">
             <button onClick={openModal}>Add Stress Data</button>
         </div>
+
+        <dib className="line-graph">
+          <LineGraphStress />
+        </dib>
     </div>
   );
 }

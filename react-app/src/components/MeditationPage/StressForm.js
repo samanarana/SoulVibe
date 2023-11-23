@@ -62,7 +62,7 @@ function StressForm({ closeModal }) {
               <label>Your relationships?</label>
               <select value={personalRelationships} onChange={(e) => setPersonalRelationships(e.target.value)}>
                 <option value="" disabled selected></option>
-                {["Stable", "Stressful", "Improving", "Strained", "Distant", "Supportive", "Conflictual", "Nonexistent"].map(relationship => (
+                {["Amazing",  "Supportive", "Stable",  "Improving", "Strained", "Stressful", "Conflictual", "Distant", "Nonexistent"].map(relationship => (
                   <option key={relationship} value={relationship}>{relationship}</option>
                 ))}
               </select>

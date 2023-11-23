@@ -92,7 +92,7 @@ function SleepSection() {
     if (score >= 80) return "Great work! Your sleep quality is high. Ensure you keep a balanced sleep schedule to maintain this.";
     if (score >= 70) return "You're doing well with your sleep habits. Keep up the good work and aim for consistency.";
     if (score >= 60) return "Good job! Your sleep is decent, but a few adjustments could make it even better.";
-    if (score >= 50) return "ou're halfway there! Maintaining a calm and quiet sleeping environment can help further.";
+    if (score >= 50) return "You're halfway there! Maintaining a calm and quiet sleeping environment can help further.";
     if (score >= 40) return "You're on the right track. Keep focusing on healthy sleep habits, like reducing screen time before bed.";
     if (score >= 30) return "You're making progress, but there's more to be done for a restful night. Look into relaxation techniques before bed.";
     if (score >= 20) return "There's significant room for enhancing your sleep. Try to establish a consistent sleep schedule";
