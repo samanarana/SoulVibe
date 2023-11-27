@@ -4,7 +4,6 @@
   justify-content: center;
   align-items: center;
   margin: 20px;
-  margin-top: -80px;
   border-radius: 8px;
 }
 .title-sleep {
@@ -132,6 +131,7 @@
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
   margin-top: 35px;
   margin-bottom: 35px;
+  width: 225px;
 }
 
 .sleep-score-message {
@@ -139,4 +139,13 @@
   text-wrap: balance;
   width: 220px;
   margin-bottom: 0;
+  font-size: 15px;
+}
+
+
+.sleep-sounds {
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
 }
