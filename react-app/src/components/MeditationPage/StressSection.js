@@ -1,7 +1,8 @@
 import React from 'react';
 import { useModal } from './../../context/Modal';
 import StressForm from './StressForm';
-import LineGraphStress from './LineGraphStress';
+import './StressSection.css';
+import BatteryStress from './BatteryStress';
 
 function StressSection() {
   const { setModalContent, closeModal } = useModal();
@@ -16,9 +17,9 @@ function StressSection() {
             <button onClick={openModal}>Add Stress Data</button>
         </div>
 
-        <dib className="line-graph">
-          <LineGraphStress />
-        </dib>
+        <div>
+          <BatteryStress />
+        </div>
     </div>
   );
 }
