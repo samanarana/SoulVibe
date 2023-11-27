@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSleepThunk, fetchSleepsThunk } from '../../store/sleep';
 import SleepForm from './SleepForm';
+import SleepSounds from './SleepSounds';
 import CircularProgress from './CircularProgress';
 import { useModal } from './../../context/Modal';
 import './SleepSection.css';
+
 
 function SleepSection() {
   const dispatch = useDispatch();
   const sleeps = useSelector(state => state.sleep.sleeps);
   const { setModalContent, closeModal } = useModal();
+
 
   useEffect(() => {
     dispatch(fetchSleepsThunk());
@@ -115,8 +118,8 @@ function SleepSection() {
           <p className="sleep-score-message">{sleepScoreMessage}</p>
       </div>
 
-      <div>
-        <button>Play Sleep Sound</button>
+      <div className="sleep-sounds">
+        <SleepSounds />
       </div>
 
     </div>

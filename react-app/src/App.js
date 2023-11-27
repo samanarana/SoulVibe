@@ -44,7 +44,7 @@ function App() {
           <Route path="/meditation" >
             <MeditationPage />
           </Route>
-          <Route path="/Journal" >
+          <Route path="/journal" >
             <JournalPage />
           </Route>
           <Route path="/resource" >
