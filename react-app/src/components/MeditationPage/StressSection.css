@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     margin: 20px;
+    margin-top: -310px;
     gap: 20px;
 }
 
@@ -128,10 +129,61 @@
     background-color: #da5b2d;
   }
 
-
-  .line-graph {
-    padding: 20px 0 10px 0;
+  .battery-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: #f8f8f8;
     border-radius: 8px;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
+    padding: 30px;
+    margin-top: 20px;
+  }
+
+  .battery {
+    width: 180px;
+    height: 40px;
+    border: 2px solid black;
+    border-radius: 4px;
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 2px;
+  }
+
+  .battery-cap {
+    content: '';
+    position: absolute;
+    top: 25%;
+    right: -5px;
+    width: 5px;
+    height: 50%;
+    background-color: black;
+    border-radius: 2px;
+  }
+
+  .battery-bar {
+    height: 100%;
+    flex: 1;
+    margin: 0 2px;
+    background-color: #fff;
+    transition: background-color 0.3s ease-in-out;
+    border-radius: 2px;
+  }
+
+  .battery-label {
+    margin-top: 10px;
+  }
+
+  .green-bar {
+      background-color: #4CAF50; /* Green color for low stress */
+  }
+
+  .yellow-bar {
+      background-color: #FFEB3B; /* Yellow color for moderate stress */
+  }
+
+  .red-bar {
+      background-color: #F44336; /* Red color for high stress */
   }
