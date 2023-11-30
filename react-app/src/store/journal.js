@@ -40,7 +40,6 @@ export const fetchJournalsThunk = () => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    console.log("Fetched journals: ", data); // Log response data
     const journalsObject = data.journals.reduce((obj, journal) => {
       obj[journal.date] = journal;
       return obj;
