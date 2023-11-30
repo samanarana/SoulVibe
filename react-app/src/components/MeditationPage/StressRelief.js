@@ -67,43 +67,58 @@ function StressRelief() {
     // Calculate the average of all stress levels
     const averageStress = stresses.reduce((acc, stressData) => acc + calculateStressLevel(stressData), 0) / (stresses.length || 1);
 
-    const renderResourcesBasedOnStress = () => {
-        if (averageStress >= 7) {
-          return (
-            <div>
-              <p>Looks like your stress is high today. How about you write a journal entry to get stuff off your mind?</p>
-              <Link to="/journal">
-                <button>JOURNAL</button>
-              </Link>
-            </div>
-          );
-        } else if (averageStress >= 4) {
-          return (
-            <div>
-              <p>Your stress is moderate. A balanced diet might help. Check out some nutritious options!</p>
-              <Link to="/nutrition">
-                <button>NUTRITION</button>
-              </Link>
-            </div>
-          );
-        } else {
-          return (
-            <div>
-              <p>Looks like your stress is low today. How about you continue that and go have a great workout? Log it here:</p>
-              <Link to="/exercise">
-                <button>EXERCISE</button>
-              </Link>
-            </div>
-          );
-        }
-      };
+   // Define the resources
+   const resources = {
+    high: [
+      { description: 'Looks like your stress is high today. Try journaling to clear your mind.', buttonText: 'Write in Journal', link: '/journal' },
+      { description: 'High stress levels can be managed with good nutrition. Explore some healthy options.', buttonText: 'Find Nutritious Foods', link: '/nutrition' },
+      { description: 'Exercise can be a great way to relieve stress. How about a workout?', buttonText: 'Plan a Workout', link: '/exercise' }
+    ],
+    moderate: [
+      { description: 'Your stress is moderate. A well-planned meal might help.', buttonText: 'Plan Meals', link: '/nutrition' },
+      { description: 'Moderate stress can be alleviated with some journaling.', buttonText: 'Journal Thoughts', link: '/journal' },
+      { description: 'A moderate workout can balance your stress. Ready to exercise?', buttonText: 'Start Exercising', link: '/exercise' }
+    ],
+    low: [
+      { description: 'Your stress is low today. Keep it that way with a light workout.', buttonText: 'Do Light Exercise', link: '/exercise' },
+      { description: 'Low stress is a perfect time to reflect. How about some journaling?', buttonText: 'Reflect in Journal', link: '/journal' },
+      { description: 'Maintain your low stress with good nutrition.', buttonText: 'Explore Healthy Recipes', link: '/nutrition' }
+    ]
+  };
+
+  // Function to get a random suggestion
+  const getRandomSuggestion = (suggestions) => {
+    return suggestions[Math.floor(Math.random() * suggestions.length)];
+  };
+
+  const renderResourcesBasedOnStress = () => {
+    let stressLevel;
+
+    if (averageStress >= 7) {
+      stressLevel = 'high';
+    } else if (averageStress >= 4) {
+      stressLevel = 'moderate';
+    } else {
+      stressLevel = 'low';
+    }
+
+    const suggestion = getRandomSuggestion(resources[stressLevel]);
 
     return (
-    <div className="stress-relief">
-        {renderResourcesBasedOnStress()}
-    </div>
+      <div>
+        <p>{suggestion.description}</p>
+        <Link to={suggestion.link}>
+          <button>{suggestion.buttonText}</button>
+        </Link>
+      </div>
     );
-}
+  };
 
+  return (
+    <div className="stress-relief">
+      {renderResourcesBasedOnStress()}
+    </div>
+  );
+}
 
 export default StressRelief;

@@ -1,0 +1,71 @@
+.stress-info-container {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
+    width: 265px;
+    height: 215px;
+    margin-top: 15px;
+}
+
+.stress-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 10px;
+  }
+
+  .tab {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: #e0e0e0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+
+  .tab.active {
+    background-color: white;
+    box-shadow: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tab:nth-child(1) { background-color: #e0e0e0; }
+  .tab:nth-child(1).active { background-color: rgb(141, 141, 141); }
+
+  .tab:nth-child(2) { background-color: red; }
+  .tab:nth-child(2).active { background-color: darkred; }
+
+  .tab:nth-child(3) { background-color: orange; }
+  .tab:nth-child(3).active { background-color: darkorange; }
+
+  .tab:nth-child(4) { background-color: yellow; }
+  .tab:nth-child(4).active { background-color: goldenrod; }
+
+  .tab:nth-child(5) { background-color: green; }
+  .tab:nth-child(5).active { background-color: darkgreen; }
+
+  .tab:nth-child(6) { background-color: blue; }
+  .tab:nth-child(6).active { background-color: darkblue; }
+
+  .tab:nth-child(7) { background-color: rgb(252, 147, 164); }
+  .tab:nth-child(7).active { background-color: rgb(248, 74, 103); }

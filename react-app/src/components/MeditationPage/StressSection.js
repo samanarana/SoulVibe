@@ -4,6 +4,7 @@ import StressForm from './StressForm';
 import './StressSection.css';
 import BatteryStress from './BatteryStress';
 import StressRelief from './StressRelief';
+import StressInfo from './StressInfo';
 
 function StressSection() {
   const { setModalContent, closeModal } = useModal();
@@ -23,6 +24,8 @@ function StressSection() {
         </div>
 
         <StressRelief />
+
+        <StressInfo />
 
     </div>
   );
