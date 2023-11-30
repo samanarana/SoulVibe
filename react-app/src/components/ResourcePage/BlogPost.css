@@ -1,0 +1,42 @@
+.blog-post-container {
+    max-width: 700px;
+    margin: auto;
+    padding: 20px;
+  }
+
+  .blog-post-container h1,
+  .blog-post-container h2,
+  .blog-post-container h3,
+  .blog-post-container h4,
+  .blog-post-container h5,
+  .blog-post-container h6 {
+    color: #333;
+    margin-top: 24px;
+    margin-bottom: 16px;
+  }
+
+  .blog-post-container p {
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+
+  .blog-post-container a {
+    color: #0066cc;
+    text-decoration: none;
+  }
+
+  .blog-post-container a:hover {
+    text-decoration: underline;
+  }
+
+  .blog-post-container ul,
+  .blog-post-container ol {
+    margin-left: 20px;
+    margin-bottom: 16px;
+  }
+
+  .blog-post-container li {
+    margin-bottom: 8px;
+  }
