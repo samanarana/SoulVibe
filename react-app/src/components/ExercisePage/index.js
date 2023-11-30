@@ -130,6 +130,13 @@ const ExercisePage = () => {
     }
   };
 
+    // Sort exercises by date in descending order
+    const sortedExercises = exercises ? Object.values(exercises).sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateB - dateA;
+    }) : [];
+
 
   return (
     <div className="full-page-container">
@@ -144,7 +151,7 @@ const ExercisePage = () => {
           </div>
 
           <div className="exercise-list">
-            {exercises && Object.values(exercises).map((exercise) => (
+            {sortedExercises.map((exercise) => (
               <div key={exercise.id} className="exercise-entry">
                 <span>{formatDate(exercise.date)}</span>
                 <span>{exercise.exercise_type}</span>
