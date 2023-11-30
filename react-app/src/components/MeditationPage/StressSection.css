@@ -152,6 +152,11 @@
     padding: 2px;
   }
 
+  .battery-title {
+    margin-top: -5px;
+    font-size: 16px;
+  }
+
   .battery-cap {
     content: '';
     position: absolute;

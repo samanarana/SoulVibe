@@ -91,11 +91,12 @@ function BatteryStress() {
 
     return (
         <div className="battery-container">
+            <p className="battery-title">Your Stress Level</p>
             <div className="battery">
                 {bars}
                 <div className="battery-cap"></div>
             </div>
-            <div className="battery-label">Your stress level - {averageStress.toFixed(1)} / 10</div>
+            <div className="battery-label">{averageStress.toFixed(1)} / 10</div>
         </div>
     );
 }
