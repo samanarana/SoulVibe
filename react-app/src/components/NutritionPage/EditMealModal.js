@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import './EditMealModal.css';
 
 function EditMealModal({ mealData, onUpdateMeal, onClose }) {
@@ -20,6 +22,17 @@ function EditMealModal({ mealData, onUpdateMeal, onClose }) {
     updatedItems[index][field] = value;
     setMealItems(updatedItems);
   };
+
+  const handleAddItem = () => {
+    setMealItems([...mealItems, { category_id: '', description: '', amount: '' }]);
+  };
+
+  const handleDeleteItem = (index) => {
+    const updatedItems = mealItems.filter((_, i) => i !== index);
+    setMealItems(updatedItems);
+  };
+
+  const isSubmitDisabled = mealItems.some(item => item.description.length < 3 || item.amount.length < 3 || !item.category_id);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -74,11 +87,13 @@ function EditMealModal({ mealData, onUpdateMeal, onClose }) {
                     onChange={(e) => handleItemChange(index, 'amount', e.target.value)}
                     />
                 </label>
+                  <FontAwesomeIcon icon={faTrashAlt} className="delete-icon" onClick={() => handleDeleteItem(index)} />
                 </div>
             ))}
           </div>
+          <span className="add-item-text" onClick={handleAddItem}>Add an item</span>
             <div className="button-container">
-                <button type="submit">UPDATE MEAL</button>
+              <button type="submit" disabled={isSubmitDisabled}>UPDATE MEAL</button>
             </div>
         </form>
       </div>

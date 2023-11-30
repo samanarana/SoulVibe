@@ -43,6 +43,8 @@ function SleepForm({ handleSubmit, closeModal }) {
     };
   }, [closeModal]);
 
+  const isFormComplete = sleepDuration && qualityOfSleep && morningMood && dreams && alcohol;
+
   return (
 <div className="sleep-form">
       <p className="title-sleep">How did you sleep?</p>
@@ -80,7 +82,7 @@ function SleepForm({ handleSubmit, closeModal }) {
             <button type="button" className={alcohol === 'No' ? 'selected' : ''} onClick={() => setAlcohol('No')}>No</button>
           </div>
           <div className="form-button-container">
-            <button type="submit">ADD SLEEP DATA</button>
+            <button type="submit" disabled={!isFormComplete}>ADD SLEEP DATA</button>
           </div>
         </form>
       </div>

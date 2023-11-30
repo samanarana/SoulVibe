@@ -42,6 +42,8 @@ function StressForm({ closeModal }) {
     closeModal();
   };
 
+  const isFormComplete = stressLevel && personalRelationships && physicalSymptoms && exerciseFrequency && nutritionHabits && relaxationActivities.length >= 10;
+
   return (
         <div className="stress-sections" ref={formRef}>
           <p className="title-stress">What's your stress like?</p>
@@ -113,7 +115,7 @@ function StressForm({ closeModal }) {
             </div>
 
             <div className="stress-sections-button-container">
-              <button type="submit">SUBMIT</button>
+              <button type="submit" disabled={!isFormComplete}>SUBMIT</button>
             </div>
 
           </form>

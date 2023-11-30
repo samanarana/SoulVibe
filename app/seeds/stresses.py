@@ -8,6 +8,7 @@ def seed_stresses():
     start_date = date.today() - timedelta(days=28)  # Starting from 28 days ago
 
     stress_levels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+    stress_weights = [0.5, 0.5, 1, 1, 2, 2, 2, 1, 1, 0.5]
     relationships = ["Amazing", "Supportive", "Stable", "Improving", "Strained", "Stressful", "Conflictual", "Distant", "Nonexistent"]
     physical_symptoms = ["None", "Headaches", "Fatigue", "Muscle Tension", "Digestive Issues", "Sleep Disturbances", "Other"]
     exercise_frequency = ["Daily", "2-3 times a week", "Once a week", "2-3 times a month", "Rarely", "Never"]
@@ -21,7 +22,7 @@ def seed_stresses():
             stress = Stress(
                 userId=user_id,
                 date=current_date,
-                stress_level=random.choice(stress_levels),
+                stress_level=random.choices(stress_levels, weights=stress_weights, k=1)[0],
                 personal_relationships=random.choice(relationships),
                 physical_symptoms=random.choice(physical_symptoms),
                 exercise_frequency=random.choice(exercise_frequency),

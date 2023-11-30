@@ -3,7 +3,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
-  margin: 20px 0 40px 40px;
+  margin: 20px 0 40px 20px;
   gap: 10px;
 }
 
@@ -41,7 +41,7 @@
 
 .my-meditations-section {
   margin-top: 35px;
-  width: 225px;
+  width: 235px;
   height: 360px;
   padding: 25px;
   background-color: #f8f8f8;
@@ -61,8 +61,8 @@
 }
 
 .meditation-chart {
-  width: 250px;
-  height: 250px;
+  width: 260px;
+  height: 260px;
   padding: 0;
 }
 
