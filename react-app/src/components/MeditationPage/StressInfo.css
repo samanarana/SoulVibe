@@ -34,7 +34,7 @@
   .tab {
     width: 20px;
     height: 20px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     background-color: #e0e0e0;
