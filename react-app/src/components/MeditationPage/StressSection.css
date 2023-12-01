@@ -1,8 +1,224 @@
-.stress-section-container {
+.stress-section-page {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     margin: 20px;
     gap: 20px;
 }
+
+.title-stress {
+    font-size: 18px;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.stress-sections {
+    width: 250px;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  .stress-sections form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .stress-sections form div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stress-sections label {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+  }
+
+  .stress-sections select,
+  .stress-sections input[type="text"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .stress-sections select:focus,
+  .stress-sections input[type="text"]:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+
+  .stress-section-page-form {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
+    padding: 20px;
+    margin-left: 40px;
+  }
+
+  .stress-section-page button {
+    padding: 10px 20px;
+    background-color: #f88054;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+
+  .stress-section-page button:hover {
+    background-color: #c96845;
+  }
+
+  .suggestions {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+  }
+
+  .suggestions h3 {
+    margin-top: 0;
+    color: #333;
+  }
+
+  .suggestions p {
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .suggestions a {
+    display: block;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  .suggestions a:hover {
+    text-decoration: underline;
+  }
+
+  .stress-sections-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .stress-sections button {
+    padding: 10px;
+    background-color: #ff6d38;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: 5px;
+  }
+
+  .stress-sections button[type="submit"]:hover {
+    background-color: #da5b2d;
+  }
+
+  .stress-sections button[type="submit"]:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+  }
+
+  .battery-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
+    padding: 30px;
+    margin-top: 20px;
+    font-size: 15px;
+    width: 225px;
+  }
+
+  .battery {
+    width: 200px;
+    height: 50px;
+    border: 2px solid black;
+    border-radius: 4px;
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 2px;
+  }
+
+  .battery-title {
+    margin-top: -5px;
+    font-size: 16px;
+  }
+
+  .battery-cap {
+    content: '';
+    position: absolute;
+    top: 25%;
+    right: -5px;
+    width: 5px;
+    height: 50%;
+    background-color: black;
+    border-radius: 2px;
+  }
+
+  .battery-bar {
+    height: 100%;
+    flex: 1;
+    margin: 0 2px;
+    background-color: #fff;
+    transition: background-color 0.3s ease-in-out;
+    border-radius: 2px;
+  }
+
+  .battery-bar.half-filled {
+    background: linear-gradient(
+      to right,
+      var(--filled-color) 50%,
+      #fff 50%
+    );
+  }
+
+  .battery-label {
+    margin-top: 10px;
+  }
+
+  .green-bar {
+      background-color: #4CAF50; /* Green color for low stress */
+  }
+
+  .yellow-bar {
+      background-color: #FFEB3B; /* Yellow color for moderate stress */
+  }
+
+  .red-bar {
+      background-color: #F44336; /* Red color for high stress */
+  }
+
+  .suggestion-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
+    padding: 20px;
+    margin-top: 15px;
+    text-wrap: balance;
+    width: 245px;
+    font-size: 15px;
+  }

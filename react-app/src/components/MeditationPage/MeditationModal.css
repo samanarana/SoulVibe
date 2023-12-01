@@ -1,0 +1,71 @@
+.meditation-form-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #modal-content {
+    border-radius: 8px;
+  }
+
+  .form-meditations {
+    width: 225px;
+    height: 310px;
+    padding: 25px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  .title-meditation {
+    text-align: center;
+    margin-top: 5px;
+  }
+
+  .form-meditations label {
+    margin-bottom: 5px;
+    font-size: 12px;
+    align-self: flex-start;
+  }
+
+  .form-meditations input[type="date"],
+  .form-meditations input[type="number"],
+  .form-meditations input[type="text"],
+  .form-meditations select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 5px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .form-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form-meditations button {
+    padding: 10px;
+    background-color: #6279fd;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: 5px;
+  }
+
+  .form-meditations button:hover {
+    background-color: #3b58fa;
+  }
+
+  .form-meditations button:disabled {
+    background-color: #b3b3b3;
+    color: #414141;
+    cursor: not-allowed;
+}

@@ -10,6 +10,7 @@ import NutritionPage from "./components/NutritionPage/index";
 import JournalPage from "./components/JournalPage/index";
 import ResourcePage from "./components/ResourcePage/index";
 import HomePage from "./components/Navigation/HomePage";
+import BlogPostPage from "./components/ResourcePage/BlogPostPage";
 
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
@@ -17,6 +18,13 @@ import Navigation from "./components/Navigation";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    window.process = {
+      ...window.process,
+    };
+  }, []);
+
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
@@ -44,8 +52,11 @@ function App() {
           <Route path="/meditation" >
             <MeditationPage />
           </Route>
-          <Route path="/Journal" >
+          <Route path="/journal" >
             <JournalPage />
+          </Route>
+          <Route path="/resources/blog/:id" >
+            <BlogPostPage />
           </Route>
           <Route path="/resource" >
             <ResourcePage />

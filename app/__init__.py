@@ -17,6 +17,7 @@ from .api.reminder_routes import reminder_routes
 from .api.sleep_routes import sleep_routes
 from .api.stress_routes import stress_routes
 from.api.resource_routes import resource_routes
+from .api.spotify_routes import spotify_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -46,6 +47,7 @@ app.register_blueprint(reminder_routes, url_prefix='/api/reminders')
 app.register_blueprint(resource_routes, url_prefix='/api/resources')
 app.register_blueprint(sleep_routes, url_prefix='/api/sleep')
 app.register_blueprint(stress_routes, url_prefix='/api/stress')
+app.register_blueprint(spotify_routes, url_prefix='/api/spotify-token')
 db.init_app(app)
 Migrate(app, db)
 

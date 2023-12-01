@@ -5,6 +5,8 @@ from .foodCategories import seed_food_categories, undo_food_categories
 from .exercises import seed_exercises, undo_exercises
 from .journals import seed_journals, undo_journals
 from .meditations import seed_meditations, undo_meditations
+from .sleeps import seed_sleeps, undo_sleeps
+from .stresses import seed_stresses, undo_stresses
 
 from app.models.db import db, environment, SCHEMA
 
@@ -27,27 +29,27 @@ def seed():
         undo_exercises()
         undo_journals()
         undo_meditations()
+        undo_sleeps()
+        undo_stresses()
     seed_users()
     seed_nutritions()
     seed_food_categories()
     seed_exercises()
     seed_journals()
     seed_meditations()
+    seed_sleeps()
+    seed_stresses()
     # Add other seed functions here
 
 
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():
-    undo_meditations()
-    undo_journals()
-    undo_exercises()
-    undo_food_categories()
     undo_nutritions()
+    undo_food_categories()
     undo_users()
-
-
-
-
-
-    # Add other undo functions here
+    undo_exercises()
+    undo_journals()
+    undo_meditations()
+    undo_sleeps()
+    undo_stresses()
