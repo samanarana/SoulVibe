@@ -54,7 +54,7 @@ function SleepForm({ handleSubmit, closeModal }) {
             <select value={sleepDuration} onChange={(e) => setSleepDuration(e.target.value)}>
             <option value="" disabled selected>How many hours?</option>
               {[...Array(11)].map((_, i) => <option key={i} value={i+1}>{i+1}</option>)}
-              <option value="12+">12+</option>
+              <option value="12">12+</option>
             </select>
           </div>
           <div>
