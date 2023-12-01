@@ -15,6 +15,7 @@ def generate_random_dates(num_dates):
 
 
 def seed_journals():
+    print("Starting to seed journals...")
     journal_entries = []
     content_samples = [
         "Today was quite a day at work. I managed to solve a complex problem that had been bugging me for weeks. It feels great to overcome such challenges, and I'm proud of my persistence and creativity in finding a solution.",
@@ -43,9 +44,16 @@ def seed_journals():
                 mood_emoji=mood_emoji
             )
             journal_entries.append(journal_entry)
+            print(f"Added journal entry for user {user_id} on date {date}")
 
+    print(f"Total journal entries to add: {len(journal_entries)}")
     db.session.add_all(journal_entries)
-    db.session.commit()
+    try:
+        db.session.commit()
+        print("Journal entries committed to the database.")
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        db.session.rollback()
 
 def undo_journals():
     if environment == "production":
