@@ -40,7 +40,7 @@ function SleepSection() {
       '5': 90, '10': 90,
       '4': 80, '11': 80,
       '3': 70, '12': 70,
-      '2': 60, '12+': 60,
+      '2': 60,
       '1': 50
     };
     score += durationScores[sleepData.sleep_duration] || 50;

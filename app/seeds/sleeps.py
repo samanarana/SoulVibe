@@ -7,7 +7,7 @@ def seed_sleeps():
     sleeps = []
     start_date = date.today() - timedelta(days=14)  # Starting from 14 days ago to get 2 weeks of data
 
-    sleep_durations = list(range(1, 12)) + ["12+"]
+    sleep_durations = list(range(1, 12))
     quality_of_sleep_options = ['Excellent', 'Great', 'Good', 'Fair', 'Poor', 'No Sleep']
     morning_moods = ['Energetic', 'Stressed', 'Relaxed', 'Anxious', 'Joyful', 'Irritable', 'Groggy', 'Restless', 'Refreshed']
     dreams_options = ['Yes', 'No']
