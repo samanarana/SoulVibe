@@ -31,9 +31,10 @@ def seed():
         undo_meditations()
         undo_sleeps()
         undo_stresses()
+
     seed_users()
-    seed_nutritions()
     seed_food_categories()
+    seed_nutritions()
     seed_exercises()
     seed_journals()
     seed_meditations()
