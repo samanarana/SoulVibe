@@ -16,7 +16,6 @@ def generate_random_dates(num_dates):
 
 def seed_journals():
     journal_entries = []
-    user_ids = [1, 2, 3, 4, 5, 6]
     content_samples = [
         "Today was quite a day at work. I managed to solve a complex problem that had been bugging me for weeks. It feels great to overcome such challenges, and I'm proud of my persistence and creativity in finding a solution.",
         "I had a deep conversation with my best friend about life and our future plans. It's always refreshing to have someone who understands and supports you. We laughed, shared our dreams, and made some exciting plans for the upcoming months.",
@@ -32,7 +31,7 @@ def seed_journals():
 
     mood_emojis = ["😀", "😢", "😨", "😌", "😍", "😴", "😎", "🤢", "😞", "😡"]
 
-    for user_id in user_ids:
+    for user_id in range(1, 7):
         dates = generate_random_dates(8)
         for date in dates:
             content = random.choice(content_samples)
