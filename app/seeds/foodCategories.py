@@ -1,4 +1,5 @@
-from app.models import db, FoodCategory
+from app.models import db, FoodCategory, environment, SCHEMA
+from sqlalchemy.sql import text
 
 def seed_food_categories():
     fruits = FoodCategory(category_name="Fruits")
@@ -13,5 +14,9 @@ def seed_food_categories():
     db.session.commit()
 
 def undo_food_categories():
-    db.session.execute('TRUNCATE food_categories;')
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.food_categories RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute(text("DELETE FROM food_categories"))
+
     db.session.commit()
