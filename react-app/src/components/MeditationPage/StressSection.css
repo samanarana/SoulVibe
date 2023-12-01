@@ -128,6 +128,12 @@
     background-color: #da5b2d;
   }
 
+  .stress-sections button[type="submit"]:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+  }
+
   .battery-container {
     display: flex;
     flex-direction: column;
@@ -138,6 +144,7 @@
     padding: 30px;
     margin-top: 20px;
     font-size: 15px;
+    width: 225px;
   }
 
   .battery {
@@ -177,6 +184,14 @@
     border-radius: 2px;
   }
 
+  .battery-bar.half-filled {
+    background: linear-gradient(
+      to right,
+      var(--filled-color) 50%,
+      #fff 50%
+    );
+  }
+
   .battery-label {
     margin-top: 10px;
   }
@@ -193,7 +208,7 @@
       background-color: #F44336; /* Red color for high stress */
   }
 
-  .stress-relief {
+  .suggestion-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -204,6 +219,6 @@
     padding: 20px;
     margin-top: 15px;
     text-wrap: balance;
-    width: 70%;
+    width: 245px;
     font-size: 15px;
   }

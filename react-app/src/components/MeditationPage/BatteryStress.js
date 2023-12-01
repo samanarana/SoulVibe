@@ -80,14 +80,33 @@ function BatteryStress() {
 
     const barColorClass = getBarColorClass(averageStress);
 
+    const getFillColor = (barColorClass) => {
+        switch(barColorClass) {
+            case 'green-bar':
+                return '#4CAF50';
+            case 'yellow-bar':
+                return '#FFEB3B';
+            case 'red-bar':
+                return '#F44336';
+            default:
+                return '#4CAF50';
+        }
+    };
     // Calculate the number of filled bars based on the stress level
     const barsCount = 10;
-    const filledBars = Math.round((10 - averageStress) * (barsCount / 10));
+    const filledBars = Math.floor(averageStress);
+    const halfFilled = averageStress % 1 >= 0.5 ? 1 : 0;
 
     // Bars for the battery
-    const bars = [...Array(barsCount)].map((e, i) => (
-        <div key={i} className={`battery-bar ${i < filledBars ? 'filled ' + barColorClass : ''}`}></div>
-    ));
+    const bars = [...Array(barsCount)].map((e, i) => {
+        let barClass = "battery-bar";
+        if (i < filledBars) {
+            barClass += ` filled ${barColorClass}`;
+        } else if (i === filledBars && halfFilled) {
+            barClass += ` half-filled ${barColorClass}`;
+        }
+        return <div key={i} className={barClass} style={{ '--filled-color': getFillColor(barColorClass) }}></div>;
+    });
 
     return (
         <div className="battery-container">

@@ -1,46 +1,51 @@
 from app.models import db, Journal, environment, SCHEMA
 from sqlalchemy.sql import text
-from datetime import datetime
+from datetime import datetime, timedelta
+import random
+
+def generate_random_dates(num_dates):
+    base_date = datetime.today()
+    dates = set()
+
+    while len(dates) < num_dates:
+        random_date = base_date - timedelta(days=random.randint(0, 15))
+        dates.add(random_date)
+
+    return list(dates)
+
 
 def seed_journals():
-    journal1 = Journal(
-        userId=1,
-        date=datetime(2023, 11, 8),
-        content="Went for a run this morning and felt an incredible burst of energy afterwards. My legs were still slightly sore from yesterday's intense leg day, but pushing through that initial discomfort led to such a rewarding feeling. Definitely need to make sure I'm stretching properly to avoid any strains.",
-        mood_emoji="😀"
-    )
-    journal2 = Journal(
-        userId=2,
-        date=datetime(2023, 11, 7),
-        content="Started today with a calming yoga session and it was just what I needed to set a positive tone for the day. My body feels so much more limber and relaxed, and mentally, I'm in a great headspace. The deep breathing really helped in grounding my thoughts and focusing on the moment.",
-        mood_emoji="🧘"
-    )
-    journal3 = Journal(
-        userId=3,
-        date=datetime(2023, 11, 6),
-        content="Tried a new workout routine today and my muscles are feeling it, perhaps a bit too much. Maybe I pushed myself harder than I should have. I think tomorrow will be focused on a gentler routine and some much-needed recovery exercises. It's important to listen to what my body is telling me.",
-        mood_emoji="😅"
-    )
-    journal4 = Journal(
-        userId=4,
-        date=datetime(2023, 11, 5),
-        content="Experimented with a new post-workout smoothie recipe today and it was a game changer. Packed with fruits, protein, and a little bit of honey for sweetness, it revitalized me instantly. My energy levels have been consistent all day. Who knew that proper nutrition could make such a difference?",
-        mood_emoji="🥤"
-    )
-    journal5 = Journal(
-        userId=5,
-        date=datetime(2023, 11, 4),
-        content="Didn't get the best sleep last night and it definitely showed in my workout. My movements felt sluggish and I couldn't push myself as hard as usual. It's a reminder that rest is just as crucial as exercise for my well-being. Tonight, I'll try to wind down early and get some quality sleep.",
-        mood_emoji="😴"
-    )
-    journal6 = Journal(
-        userId=6,
-        date=datetime(2023, 11, 3),
-        content="Noticed some progress in my strength training today, which feels amazing. My arms were steadier, and mentally, I felt invincible. It's amazing how small changes and consistent effort lead to such progress. Looking forward to pushing my limits and seeing where this journey takes me.",
-        mood_emoji="💪"
-    )
+    journal_entries = []
+    user_ids = [1, 2, 3, 4, 5, 6]
+    content_samples = [
+        "Today was quite a day at work. I managed to solve a complex problem that had been bugging me for weeks. It feels great to overcome such challenges, and I'm proud of my persistence and creativity in finding a solution.",
+        "I had a deep conversation with my best friend about life and our future plans. It's always refreshing to have someone who understands and supports you. We laughed, shared our dreams, and made some exciting plans for the upcoming months.",
+        "Feeling a little down today. Things didn't go as planned, and I'm finding it hard to stay positive. I know tomorrow is a new day, but right now, I just need some time to process my feelings and maybe watch a comforting movie.",
+        "Had an amazing family dinner tonight. There's something special about sharing a meal with loved ones, discussing various topics, and just enjoying each other's company. It's moments like these that I cherish the most.",
+        "Woke up feeling incredibly refreshed this morning. I had a good night's sleep for the first time in a while, and it's amazing how much difference it makes. I'm energized and ready to tackle whatever the day throws at me.",
+        "I tried a new recipe today, and it turned out fantastic! Cooking is such a therapeutic activity for me. It's amazing how combining simple ingredients can result in something so delicious and satisfying.",
+        "Today was one of those days where everything seemed to go wrong. I'm trying to remind myself that bad days are a part of life and it's okay not to be okay sometimes. I'm hoping for a better day tomorrow.",
+        "I'm feeling really proud of myself for sticking to my workout routine. Today's session was particularly intense, and I pushed through it. It's rewarding to see my progress and know that my hard work is paying off.",
+        "I spent the afternoon reading at my favorite café. There's something about the ambiance there that makes me feel so relaxed and content. I'm grateful for these small moments of peace amidst a hectic life.",
+        "Had a bit of a rough day at work today. Sometimes it feels like no matter how hard I work, it's never enough. I'm trying to stay positive and focus on the things I can control, but it's tough."
+    ]
 
-    db.session.add_all([journal1, journal2, journal3, journal4, journal5, journal6])
+    mood_emojis = ["😀", "😢", "😨", "😌", "😍", "😴", "😎", "🤢", "😞", "😡"]
+
+    for user_id in user_ids:
+        dates = generate_random_dates(8)
+        for date in dates:
+            content = random.choice(content_samples)
+            mood_emoji = random.choice(mood_emojis)
+            journal_entry = Journal(
+                userId=user_id,
+                date=date,
+                content=content,
+                mood_emoji=mood_emoji
+            )
+            journal_entries.append(journal_entry)
+
+    db.session.add_all(journal_entries)
     db.session.commit()
 
 def undo_journals():

@@ -105,7 +105,7 @@ function StressRelief() {
     const suggestion = getRandomSuggestion(resources[stressLevel]);
 
     return (
-      <div>
+      <div className="suggestion-container">
         <p>{suggestion.description}</p>
         <Link to={suggestion.link}>
           <button>{suggestion.buttonText}</button>
