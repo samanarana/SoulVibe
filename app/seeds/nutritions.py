@@ -1,4 +1,5 @@
-from app.models import db, Nutrition, NutritionDetails
+from app.models import db, Nutrition, NutritionDetails, environment, SCHEMA
+from sqlalchemy.sql import text
 from datetime import date, timedelta
 import random
 
@@ -107,5 +108,9 @@ def seed_nutritions():
     db.session.commit()
 
 def undo_nutritions():
-    db.session.execute('TRUNCATE nutritions;')
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.nutritions RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute(text("DELETE FROM nutritions"))
+
     db.session.commit()
