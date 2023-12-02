@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from datetime import datetime
-from app.models import Nutrition, NutritionDetails, db
+from app.models import Nutrition, NutritionDetails, FoodCategory, db
 from flask_login import current_user, login_required
 
 nutrition_routes = Blueprint('nutrition', __name__)
@@ -21,6 +21,11 @@ def get_nutrition_entries():
     return {'nutrition': [entry.to_dict() for entry in user_nutrition]}
 
 
+# Helper function to get category id
+def get_category_id(category_name):
+    category = FoodCategory.query.filter_by(category_name=category_name).first()
+    return category.id if category else None
+
 # Create a new nutrition entry for the authenticated user
 @nutrition_routes.route('/', methods=['POST'])
 @login_required
@@ -38,9 +43,14 @@ def create_nutrition_entry():
     # Extracting nutrition details from the request
     nutrition_details_data = data.get('nutrition_details', [])
     for detail_data in nutrition_details_data:
+        category_id = get_category_id(detail_data['category_id'])  # Convert category name to ID
+
+        if category_id is None:
+            return jsonify({"error": f"Category '{detail_data['category_id']}' not found"}), 400
+
         new_detail = NutritionDetails(
             nutrition_id=new_nutrition.id,
-            category_id=detail_data['category_id'],
+            category_id=category_id,  # Use the integer ID
             description=detail_data['description'],
             amount=detail_data['amount']
         )
