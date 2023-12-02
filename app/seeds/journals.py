@@ -32,9 +32,15 @@ def seed_journals():
 
     mood_emojis = ["😀", "😢", "😨", "😌", "😍", "😴", "😎", "🤢", "😞", "😡"]
 
+    existing_entries = set()
+
     for user_id in range(1, 7):
         dates = generate_random_dates(8)
         for date in dates:
+            # Check if the user-date combination already exists
+            if (user_id, date) in existing_entries:
+                continue  # Skip if the entry already exists
+
             content = random.choice(content_samples)
             mood_emoji = random.choice(mood_emojis)
             journal_entry = Journal(
@@ -44,6 +50,7 @@ def seed_journals():
                 mood_emoji=mood_emoji
             )
             journal_entries.append(journal_entry)
+            existing_entries.add((user_id, date))  # Add combination to the set
             print(f"Added journal entry for user {user_id} on date {date}")
 
     print(f"Total journal entries to add: {len(journal_entries)}")
