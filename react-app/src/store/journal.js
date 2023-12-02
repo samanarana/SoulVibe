@@ -65,7 +65,6 @@ export const createJournalThunk = (journalData) => async (dispatch) => {
     }
 
     const journal = await response.json();
-    console.log("Created journal before formatting date: ", journal); // Log created journal before formatting
     dispatch(addJournal(journal));
 
     return 'success';
