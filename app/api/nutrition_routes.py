@@ -22,9 +22,9 @@ def get_nutrition_entries():
 
 
 # Helper function to get category id
-def get_category_id(category_name):
-    category = FoodCategory.query.filter_by(category_name=category_name).first()
-    return category.id if category else None
+#def get_category_id(category_name):
+#    category = FoodCategory.query.filter_by(category_name=category_name).first()
+ #   return category.id if category else None
 
 # Create a new nutrition entry for the authenticated user
 @nutrition_routes.route('/', methods=['POST'])
@@ -43,14 +43,9 @@ def create_nutrition_entry():
     # Extracting nutrition details from the request
     nutrition_details_data = data.get('nutrition_details', [])
     for detail_data in nutrition_details_data:
-        category_id = get_category_id(detail_data['category_id'])  # Convert category name to ID
-
-        if category_id is None:
-            return jsonify({"error": f"Category '{detail_data['category_id']}' not found"}), 400
-
         new_detail = NutritionDetails(
             nutrition_id=new_nutrition.id,
-            category_id=category_id,  # Use the integer ID
+            category_id=detail_data['category_id'],
             description=detail_data['description'],
             amount=detail_data['amount']
         )

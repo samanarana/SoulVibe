@@ -17,6 +17,15 @@ import dairyIcon from './CategoryImage/dairy.png';
 import dessertIcon from './CategoryImage/dessert.png';
 import drinksIcon from './CategoryImage/drinkss.png';
 
+const categoryMappings = {
+  fruits: 1,
+  vegetables: 2,
+  proteins: 3,
+  grains: 4,
+  dairy: 5,
+  dessert: 6,
+  drinks: 7,
+};
 
 function AddMealForm() {
 
@@ -74,25 +83,34 @@ function AddMealForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const combinedEntries = [...foodEntries];
+
+    // Map category names to IDs
+    const mappedEntries = foodEntries.map(entry => ({
+      ...entry,
+      category_id: categoryMappings[entry.category_id],
+    }));
 
     // Add the current nutrition detail if it's filled
     if (nutritionDetails[0].description && nutritionDetails[0].amount) {
-        combinedEntries.push(nutritionDetails[0]);
+      const currentDetailMapped = {
+        ...nutritionDetails[0],
+        category_id: categoryMappings[nutritionDetails[0].category_id]
+      };
+      mappedEntries.push(currentDetailMapped);
     }
 
     const formData = {
-        date: mealDate,
-        meal_type: mealType,
-        nutrition_details: combinedEntries,
-        userId: sessionUser.id,
+      date: mealDate,
+      meal_type: mealType,
+      nutrition_details: mappedEntries,
+      userId: sessionUser.id,
     };
 
     // Dispatch create
     dispatch(createNutritionThunk(formData));
 
     // Dispatch to fetch latest nutrition data
-  dispatch(fetchNutritionsThunk());
+    dispatch(fetchNutritionsThunk());
 
     // Reset the form
     resetForm();
