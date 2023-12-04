@@ -16,6 +16,7 @@ function PageNav() {
       {pageRoutes.map((page) => (
         <NavLink key={page.name} to={page.path} className="page-item" activeClassName="active">
           <img src={page.icon} alt={`${page.name} icon`} className="page-icon" />
+          <span className="page-label">{page.name}</span>
         </NavLink>
       ))}
     </nav>

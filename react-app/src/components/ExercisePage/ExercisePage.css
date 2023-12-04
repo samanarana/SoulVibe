@@ -37,17 +37,30 @@
 .title-exercise-list {
     font-weight: bold;
     margin: 0;
-    margin-left: 35px;
     text-align: center;
     padding-top: 5px;
     flex-grow: 1;
 }
 
+.button-placeholder {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.25em;
+    color: #181c24;
+    padding-top: 5px;
+    margin-right: 5px;
+    display: inline-block;
+    position: absolute;
+    transform: translateX(500%);
+}
+
 .title-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     margin-top: 5px;
+    position: relative;
   }
 
 .reset-add-exercise-button {
@@ -58,6 +71,8 @@
     color: #181c24;
     padding-top: 5px;
     margin-right: 5px;
+    position: absolute;
+    transform: translateX(500%);
 }
 
 .exercise-list {
