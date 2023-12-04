@@ -26,9 +26,8 @@ function SleepSection() {
   };
 
   const openModal = () => {
-    setModalContent(<SleepForm handleSubmit={handleSubmit} />);
+    setModalContent(<SleepForm handleSubmit={handleSubmit} closeModal={closeModal} />);
   };
-
 
 
   const calculateSleepScore = (sleepData) => {

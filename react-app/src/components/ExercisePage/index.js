@@ -15,6 +15,7 @@ const ExercisePage = () => {
   const [editingExerciseId, setEditingExerciseId] = useState(null);
   const [errors, setErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const dispatch = useDispatch();
   const exercises = useSelector(state => state.exercise.exercises);
@@ -23,6 +24,15 @@ const ExercisePage = () => {
     dispatch(fetchExercisesThunk());
   }, [dispatch]);
 
+  useEffect(() => {
+    const valid = date &&
+                  exerciseType.length >= 4 &&
+                  !isNaN(parseFloat(duration)) &&
+                  parseFloat(duration) > 0 &&
+                  intensity &&
+                  !isSubmitted;
+    setIsFormValid(valid);
+  }, [date, exerciseType, duration, intensity, isSubmitted]);
 
   const validateForm = () => {
     const validationErrors = {};
@@ -86,25 +96,23 @@ const ExercisePage = () => {
   const handleSaveExercise = () => {
     setIsSubmitted(true);
     const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
+    if (Object.keys(validationErrors).length === 0) {
+      const exerciseData = {
+        date,
+        exercise_type: exerciseType,
+        duration,
+        intensity,
+      };
 
-    const exerciseData = {
-      date,
-      exercise_type: exerciseType,
-      duration,
-      intensity,
-    };
-
-    if (isEditing) {
-      dispatch(editExerciseThunk(editingExerciseId, exerciseData));
+      if (isEditing) {
+        dispatch(editExerciseThunk(editingExerciseId, exerciseData));
+      } else {
+        dispatch(createExerciseThunk(exerciseData));
+      }
+      resetFormToAddMode();
     } else {
-      dispatch(createExerciseThunk(exerciseData));
+      setErrors(validationErrors);
     }
-
-    resetFormToAddMode();
   };
 
   const resetFormToAddMode = () => {
@@ -114,7 +122,8 @@ const ExercisePage = () => {
     setIntensity('');
     setIsEditing(false);
     setEditingExerciseId(null);
-    setErrors('');
+    setErrors({});
+    setIsSubmitted(false);
   };
 
   const handleRemoveExercise = (id) => {
@@ -130,12 +139,12 @@ const ExercisePage = () => {
     }
   };
 
-    // Sort exercises by date in descending order
-    const sortedExercises = exercises ? Object.values(exercises).sort((a, b) => {
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
-      return dateB - dateA;
-    }) : [];
+  // Sort exercises by date in descending order
+  const sortedExercises = exercises ? Object.values(exercises).sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    return dateB - dateA;
+  }) : [];
 
 
   return (
@@ -145,9 +154,13 @@ const ExercisePage = () => {
         <div className="exercise-list-container">
           <div className="title-container">
             <p className="title-exercise-list">My Exercises</p>
-            <button className="reset-add-exercise-button" onClick={resetFormToAddMode}>
-              <FontAwesomeIcon icon={faPlus} />
-            </button>
+            {isEditing ? (
+                <button className="reset-add-exercise-button" onClick={resetFormToAddMode}>
+                    <FontAwesomeIcon icon={faPlus} />
+                </button>
+            ) : (
+                <div className="button-placeholder"></div>
+            )}
           </div>
 
           <div className="exercise-list">
@@ -202,20 +215,13 @@ const ExercisePage = () => {
           </div>
 
           <div className="submit-button-container">
-                <button
-                className="save-exercise-button"
-                onClick={handleSaveExercise}
-                disabled={
-                  !date ||
-                  exerciseType.length < 4 ||
-                  isNaN(duration) ||
-                  duration <= 0 ||
-                  !intensity ||
-                  isSubmitted
-                }
-              >
-                {isEditing ? 'Save Changes' : 'Add Exercise'}
-          </button>
+            <button
+              className="save-exercise-button"
+              onClick={handleSaveExercise}
+              disabled={!isFormValid}
+            >
+              {isEditing ? 'Save Changes' : 'Add Exercise'}
+            </button>
           </div>
         </div>
       </div>

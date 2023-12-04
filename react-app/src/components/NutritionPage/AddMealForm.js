@@ -28,7 +28,6 @@ const categoryMappings = {
 };
 
 function AddMealForm() {
-
   const initialNutritionDetail = {
     category_id: '',
     description: '',
@@ -46,26 +45,37 @@ function AddMealForm() {
   const [mealDate, setMealDate] = useState(getLocalDate());
   const [mealType, setMealType] = useState("");
   const [nutritionDetails, setNutritionDetails] = useState([initialNutritionDetail]);
+  const [nutritionUnits, setNutritionUnits] = useState(nutritionDetails.map(() => ''));
   const [foodEntries, setFoodEntries] = useState([]);
   const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
 
   useEffect(() => {
-    const checkIfSubmitEnabled = () => {
-      return (
-        mealType !== "" &&
-        nutritionDetails.some(detail => detail.category_id !== '' && detail.description.length >= 3 && detail.amount.length >= 3)
-      );
+    const isInitialDetailComplete = () => {
+      const detail = nutritionDetails[0];
+      return detail.category_id !== '' &&
+             detail.description.length >= 3 &&
+             detail.amount.length >= 1;
     };
+
+    const checkIfSubmitEnabled = () =>
+      mealType !== "" && isInitialDetailComplete();
 
     setIsSubmitEnabled(checkIfSubmitEnabled());
   }, [mealType, nutritionDetails]);
 
+
+
   const addNutritionDetail = () => {
     if (nutritionDetails[0].description && nutritionDetails[0].amount) {
-        setFoodEntries(prevEntries => [...prevEntries, nutritionDetails[0]]);
-        setNutritionDetails([initialNutritionDetail]);
+      const newEntry = {
+        ...nutritionDetails[0],
+        amount: `${nutritionDetails[0].amount} ${nutritionUnits[0]}`.trim(),
+      };
+      setFoodEntries(prevEntries => [...prevEntries, newEntry]);
+      setNutritionDetails([initialNutritionDetail]);
+      setNutritionUnits(['']);
     } else {
-        console.log("Current nutrition details are incomplete.");
+      console.log("Current nutrition details are incomplete.");
     }
   };
 
@@ -73,6 +83,24 @@ function AddMealForm() {
     const newDetails = [...nutritionDetails];
     newDetails[index][field] = value;
     setNutritionDetails(newDetails);
+  };
+
+  const isNumericWithTwoDecimals = (value) => {
+    return /^-?\d+(\.\d{0,2})?$/.test(value);
+  };
+
+  const handleAmountChange = (index, value) => {
+    if (isNumericWithTwoDecimals(value) || value === '') {
+      const newDetails = [...nutritionDetails];
+      newDetails[index].amount = value;
+      setNutritionDetails(newDetails);
+    }
+  };
+
+  const handleUnitChange = (index, unit) => {
+    const newUnits = [...nutritionUnits];
+    newUnits[index] = unit;
+    setNutritionUnits(newUnits);
   };
 
   const handleCategoryChange = (index, categoryId) => {
@@ -84,17 +112,17 @@ function AddMealForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Map category names to IDs
     const mappedEntries = foodEntries.map(entry => ({
       ...entry,
       category_id: categoryMappings[entry.category_id],
+      amount: `${entry.amount} ${nutritionUnits[foodEntries.indexOf(entry)]}`.trim()
     }));
 
-    // Add the current nutrition detail if it's filled
     if (nutritionDetails[0].description && nutritionDetails[0].amount) {
       const currentDetailMapped = {
         ...nutritionDetails[0],
-        category_id: categoryMappings[nutritionDetails[0].category_id]
+        category_id: categoryMappings[nutritionDetails[0].category_id],
+        amount: `${nutritionDetails[0].amount} ${nutritionUnits[0]}`.trim()
       };
       mappedEntries.push(currentDetailMapped);
     }
@@ -106,27 +134,18 @@ function AddMealForm() {
       userId: sessionUser.id,
     };
 
-    // Dispatch create
     dispatch(createNutritionThunk(formData));
-
-    // Dispatch to fetch latest nutrition data
     dispatch(fetchNutritionsThunk());
-
-    // Reset the form
     resetForm();
   };
 
   const resetForm = () => {
-      setMealDate(new Date().toISOString().split('T')[0]);
-      setMealType("");
-      setNutritionDetails([initialNutritionDetail]);
-      setFoodEntries([]);
+    setMealDate(getLocalDate());
+    setMealType("");
+    setNutritionDetails([initialNutritionDetail]);
+    setFoodEntries([]);
   };
 
-
-
-
-  // Function to return the correct icon based on the category
   const getCategoryIcon = (categoryId) => {
     switch (categoryId) {
       case 'fruits': return fruitsIcon;
@@ -139,7 +158,6 @@ function AddMealForm() {
       default: return '';
     }
   };
-
 
   return (
     <div className="add-meal-form-container">
@@ -302,16 +320,34 @@ function AddMealForm() {
                     </div>
 
                     <div className="amount-section">
-                    <label htmlFor={`amount-${index}`}>Amount?</label>
-                    <input
-                        type="text"
-                        id={`amount-${index}`}
-                        name="amount"
-                        value={detail.amount}
-                        onChange={(e) => handleNutritionDetailChange(index, 'amount', e.target.value)}
-                        required
-                    />
-                    </div>
+                      <label htmlFor={`amount-${index}`}>Amount</label>
+                        <div className="amount-input-container">
+                          <input
+                            type="text"
+                            id={`amount-${index}`}
+                            name="amount"
+                            value={detail.amount}
+                            onChange={(e) => handleAmountChange(index, e.target.value)}
+                            required
+                          />
+                          <select
+                            id={`unit-${index}`}
+                            name="unit"
+                            value={nutritionUnits[index]}
+                            onChange={(e) => handleUnitChange(index, e.target.value)}
+                            required
+                          >
+                              <option value="">Select Unit</option>
+                              <option value="grams">Grams</option>
+                              <option value="ounces">Ounces</option>
+                              <option value="cups">Cups</option>
+                              <option value="pieces">Pieces</option>
+                              <option value="tablespoons">Tablespoons</option>
+                              <option value="teaspoons">Teaspoons</option>
+                          </select>
+                      </div>
+                  </div>
+
                   </div>
                 </div>
             ))}

@@ -179,8 +179,25 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 35%
+    width: 75%
   }
+
+  .amount-input-container {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .amount-input-container input[type="number"] {
+    width: 50%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+  .amount-input-container select {
+      width: 50%;
+  }
+
 
   .food-entries-container {
     width: 100%;
