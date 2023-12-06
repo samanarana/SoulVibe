@@ -73,7 +73,6 @@ function JournalPage() {
       mood_emoji: selectedEmoji,
       date: currentDate
     };
-    console.log("Submitting journal entry: ", journalData); // Log submission data
     const result = await dispatch(createJournalThunk(journalData));
 
     if (result === 'success') {
