@@ -74,8 +74,6 @@ function AddMealForm() {
       setFoodEntries(prevEntries => [...prevEntries, newEntry]);
       setNutritionDetails([initialNutritionDetail]);
       setNutritionUnits(['']);
-    } else {
-      console.log("Current nutrition details are incomplete.");
     }
   };
 

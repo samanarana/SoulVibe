@@ -60,7 +60,6 @@ export const createJournalThunk = (journalData) => async (dispatch) => {
     });
 
     if (!response.ok) {
-      console.log("Error creating journal: ", response); // Log error response
       return 'error';
     }
 

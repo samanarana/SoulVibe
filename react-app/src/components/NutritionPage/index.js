@@ -36,6 +36,9 @@ function NutritionPage() {
     dispatch(fetchNutritionsThunk())
   }, [dispatch]);
 
+  useEffect(() => {
+  }, [nutritions]);
+
   const nutritionsForSelectedDate = Object.values(nutritions).filter(
     (nutrition) => nutrition.date === selectedDate
   );
@@ -115,10 +118,19 @@ function NutritionPage() {
   };
 
   // Function to handle the update
-  const handleUpdateMeal = async (updatedMealData) => {
-    await dispatch(updateNutritionThunk(selectedCardId, updatedMealData));
+  const handleUpdateMeal = async (updatedItems) => {
+    await dispatch(updateNutritionThunk(selectedCardId, updatedItems));
+
     closeEditModal();
+
+    // Update the selectedMeal state to reflect the changes
+    setSelectedMeal(prevMeal => ({
+      ...prevMeal,
+      nutrition_details: updatedItems.items
+    }));
+
     dispatch(fetchNutritionsThunk())
+
   };
 
   const getMealIcon = (meal_type) => {
@@ -186,7 +198,7 @@ function NutritionPage() {
                 <p>My {selectedMeal.meal_type} !</p>
                 <ul>
                   {selectedMeal.nutrition_details.map(detail => (
-                    <li key={detail.id}>
+                    <li>
                       {detail.description} - {detail.amount}
                     </li>
                   ))}

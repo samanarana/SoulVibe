@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { updateNutritionThunk } from '../../store/nutrition';
 import './EditMealModal.css';
 
 function EditMealModal({ mealData, onUpdateMeal, onClose }) {
+  const dispatch = useDispatch();
   const mealTypeOptions = ["breakfast", "lunch", "snack", "dinner", "dessert"];
   const categoryOptions = ["Fruits", "Vegetables", "Proteins", "Grains", "Dairy", "Dessert", "Drinks"];
 
@@ -19,12 +22,25 @@ function EditMealModal({ mealData, onUpdateMeal, onClose }) {
 
   const handleItemChange = (index, field, value) => {
     const updatedItems = [...mealItems];
-    updatedItems[index][field] = value;
+    if (field === 'category_id') {
+      updatedItems[index].category_id = parseInt(value, 10);
+    } else {
+      updatedItems[index][field] = value;
+    }
+
     setMealItems(updatedItems);
   };
 
+
   const handleAddItem = () => {
-    setMealItems([...mealItems, { category_id: '', description: '', amount: '' }]);
+    const newItem = {
+      amount: '',
+      category_id: 1,
+      description: '',
+      nutrition_id: mealData.nutrition_id,
+    };
+
+    setMealItems([...mealItems, newItem]);
   };
 
   const handleDeleteItem = (index) => {
@@ -32,12 +48,21 @@ function EditMealModal({ mealData, onUpdateMeal, onClose }) {
     setMealItems(updatedItems);
   };
 
-  const isSubmitDisabled = mealItems.some(item => item.description.length < 3 || item.amount.length < 3 || !item.category_id);
+  const isSubmitDisabled = mealItems.some(item => !item.description || !item.amount || !item.category_id);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const updatedMealData = { mealType, items: mealItems };
-    onUpdateMeal(updatedMealData);
+    const updatedItems = mealItems.map(item => ({
+      nutrition_id: item.nutrition_id,
+      category_id: item.category_id,
+      description: item.description,
+      amount: item.amount,
+    }));
+
+    // Dispatch a single updateNutritionThunk with the updated items
+    dispatch(updateNutritionThunk(mealData.id, { nutrition_details: updatedItems }));
+
+    onUpdateMeal({ mealType, items: updatedItems });
   };
 
   return (
@@ -56,45 +81,44 @@ function EditMealModal({ mealData, onUpdateMeal, onClose }) {
               ))}
             </select>
           </label>
-
           <div className="modal-details-container">
             {mealItems.map((item, index) => (
-                <div key={index} className="meal-item">
+              <div key={index} className="meal-item">
                 <label>
-                    Category:
-                    <select
+                  Category:
+                  <select
                     value={item.category_id}
                     onChange={(e) => handleItemChange(index, 'category_id', e.target.value)}
-                    >
+                  >
                     {categoryOptions.map((cat, catIndex) => (
-                        <option key={catIndex} value={catIndex + 1}>{cat}</option>
+                      <option key={catIndex} value={catIndex + 1}>{cat}</option>
                     ))}
-                    </select>
+                  </select>
                 </label>
                 <label>
-                    Description:
-                    <input
+                  Description:
+                  <input
                     type="text"
                     value={item.description}
                     onChange={(e) => handleItemChange(index, 'description', e.target.value)}
-                    />
+                  />
                 </label>
                 <label>
-                    Amount:
-                    <input
+                  Amount:
+                  <input
                     type="text"
                     value={item.amount}
                     onChange={(e) => handleItemChange(index, 'amount', e.target.value)}
-                    />
+                  />
                 </label>
-                  <FontAwesomeIcon icon={faTrashAlt} className="delete-icon" onClick={() => handleDeleteItem(index)} />
-                </div>
+                <FontAwesomeIcon icon={faTrashAlt} className="delete-icon" onClick={() => handleDeleteItem(index)} />
+              </div>
             ))}
           </div>
           <span className="add-item-text" onClick={handleAddItem}>Add an item</span>
-            <div className="button-container">
-              <button type="submit" disabled={isSubmitDisabled}>UPDATE MEAL</button>
-            </div>
+          <div className="button-container">
+            <button type="submit" disabled={isSubmitDisabled}>UPDATE MEAL</button>
+          </div>
         </form>
       </div>
     </div>
