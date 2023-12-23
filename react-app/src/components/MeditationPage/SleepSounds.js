@@ -17,7 +17,7 @@ function SleepSounds() {
     };
 
     const fetchAccessToken = useCallback(async () => {
-        const response = await fetch('http://localhost:3000/api/spotify-token');
+        const response = await fetch('https://soulvibe.onrender.com/api/spotify-token');
         const data = await response.json();
         if (data.access_token) {
             spotifyApi.setAccessToken(data.access_token);
