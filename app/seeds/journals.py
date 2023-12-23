@@ -3,12 +3,12 @@ from sqlalchemy.sql import text
 from datetime import datetime, timedelta
 import random
 
-def generate_random_dates(num_dates, days_back=60):
+def generate_random_dates(num_dates):
     base_date = datetime.today()
     dates = set()
 
     while len(dates) < num_dates:
-        random_date = base_date - timedelta(days=random.randint(0, days_back))
+        random_date = base_date - timedelta(days=random.randint(0, 60))
         dates.add(random_date)
 
     return list(dates)
@@ -45,7 +45,7 @@ def seed_journals():
     existing_entries = set()
 
     for user_id in range(1, 7):
-        dates = generate_random_dates(20, 60)
+        dates = generate_random_dates(8)
         for date in dates:
             # Check if the user-date combination already exists
             if (user_id, date) in existing_entries:
