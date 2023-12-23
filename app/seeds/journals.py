@@ -45,7 +45,7 @@ def seed_journals():
     existing_entries = set()
 
     for user_id in range(1, 7):
-        dates = generate_random_dates(8)
+        dates = generate_random_dates(12)
         for date in dates:
             # Check if the user-date combination already exists
             if (user_id, date) in existing_entries:
