@@ -11,6 +11,7 @@ import JournalPage from "./components/JournalPage/index";
 import ResourcePage from "./components/ResourcePage/index";
 import HomePage from "./components/Navigation/HomePage";
 import BlogPostPage from "./components/ResourcePage/BlogPostPage";
+import Footer from "./components/Navigation/Footer";
 
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
@@ -30,40 +31,43 @@ function App() {
   }, [dispatch]);
 
   return (
-    <>
+    <div className="app-container">
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
-        <Switch>
-          <Route exact path="/">
-            <HomePage />
-          </Route>
-          <Route path="/login" >
-            <LoginFormPage />
-          </Route>
-          <Route path="/signup">
-            <SignupFormPage />
-          </Route>
-          <Route path="/exercise" >
-            <ExercisePage />
-          </Route>
-          <Route path="/nutrition" >
-            <NutritionPage />
-          </Route>
-          <Route path="/meditation" >
-            <MeditationPage />
-          </Route>
-          <Route path="/journal" >
-            <JournalPage />
-          </Route>
-          <Route path="/resources/blog/:id" >
-            <BlogPostPage />
-          </Route>
-          <Route path="/resource" >
-            <ResourcePage />
-          </Route>
-        </Switch>
+        <>
+          <Switch>
+            <Route exact path="/">
+              <HomePage />
+            </Route>
+            <Route path="/login">
+              <LoginFormPage />
+            </Route>
+            <Route path="/signup">
+              <SignupFormPage />
+            </Route>
+            <Route path="/exercise">
+              <ExercisePage />
+            </Route>
+            <Route path="/nutrition">
+              <NutritionPage />
+            </Route>
+            <Route path="/meditation">
+              <MeditationPage />
+            </Route>
+            <Route path="/journal">
+              <JournalPage />
+            </Route>
+            <Route path="/resources/blog/:id">
+              <BlogPostPage />
+            </Route>
+            <Route path="/resource">
+              <ResourcePage />
+            </Route>
+          </Switch>
+          <Footer />
+        </>
       )}
-    </>
+    </div>
   );
 }
 

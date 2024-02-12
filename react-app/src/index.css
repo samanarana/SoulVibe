@@ -8,3 +8,18 @@ body {
     padding: 0;
     margin: 0;
 }
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+.app-container { /* This can be #root if you prefer to apply styles directly to it */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Make sure it's at least as tall as the viewport */
+}
+
+.content { /* Use this class for the main content area if needed */
+  flex: 1; /* This makes the content expand and push the footer down */
+}

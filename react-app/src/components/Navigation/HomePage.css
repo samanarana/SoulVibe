@@ -92,31 +92,3 @@
     font-size: 12px;
     color: #181c24;
 }
-
-
-/* FOOTER SECTION */
-.footer-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    background-color: #181c24;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    height: 220px;
-  }
-
-  .footer-title {
-    align-self: flex-start;
-    font-size: 30px;
-    font-weight: bold;
-    margin-bottom: 0;
-    margin-left: 40px;
-
-  }
-
-  .message3 {
-    margin: 20px 0;
-    font-size: 18px;
-  }

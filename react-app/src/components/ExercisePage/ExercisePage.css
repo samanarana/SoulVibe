@@ -4,6 +4,7 @@
     align-items: flex-start;
     gap: 2rem;
     padding: 2rem;
+    min-height: 70vh;
 }
 
 .exercise-page {
