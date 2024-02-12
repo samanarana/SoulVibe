@@ -203,7 +203,7 @@ function NutritionPage() {
                     </li>
                   ))}
                 </ul>
-                <button className="edit-meal-button" onClick={openEditModal}>~Edit Meal~</button>
+                <button className="edit-meal-button" onClick={openEditModal}>Edit Meal</button>
               </div>
             </div>
           )}

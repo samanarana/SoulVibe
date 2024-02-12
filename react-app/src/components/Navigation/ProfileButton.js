@@ -6,6 +6,8 @@ import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 
+import profileImage from './images/person.png';
+
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -43,7 +45,7 @@ function ProfileButton({ user }) {
   return (
     <>
       <button className="profile-button" onClick={openMenu}>
-        <i className="fas fa-user-circle" />
+        <img src={profileImage} alt="Profile" style={{width: '34px', height: '34px'}} />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (

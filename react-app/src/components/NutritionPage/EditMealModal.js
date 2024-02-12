@@ -7,7 +7,7 @@ import './EditMealModal.css';
 
 function EditMealModal({ mealData, onUpdateMeal, onClose }) {
   const dispatch = useDispatch();
-  const mealTypeOptions = ["breakfast", "lunch", "snack", "dinner", "dessert"];
+  const mealTypeOptions = ["Breakfast", "Lunch", "Snack", "Dinner", "Dessert"];
   const categoryOptions = ["Fruits", "Vegetables", "Proteins", "Grains", "Dairy", "Dessert", "Drinks"];
 
   const [mealType, setMealType] = useState('');
