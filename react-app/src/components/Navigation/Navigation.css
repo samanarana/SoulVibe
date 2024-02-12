@@ -84,12 +84,12 @@ html, body {
 
 
 .profile-button {
-  background-color: #181c24;
+  background-color: #ffffff6e;
   border: none;
-  border-radius: 50%;
-  padding: 10px;
-  width: 30px;
-  height: 30px;
+  border-radius: 5px;
+  padding: 5px;
+  width: 45px;
+  height: 45px;
   display: flex;
   justify-content: center;
   align-items: center;
